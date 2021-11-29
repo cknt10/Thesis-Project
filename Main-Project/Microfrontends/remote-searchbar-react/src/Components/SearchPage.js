@@ -24,10 +24,12 @@ const SearchPage = (props) => {
   }
 
   useEffect( () => {fetchData()},[]);
+
+
+  // <h1>Result List</h1>
 	
   return (
     <>
-      <h1>Result List</h1>
       <SearchBar 
        input={input} 
        onChange={updateInput}

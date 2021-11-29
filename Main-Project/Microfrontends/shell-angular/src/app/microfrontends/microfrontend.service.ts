@@ -27,6 +27,7 @@ export class MicrofrontendService {
    */
   loadConfig(): Microfrontend[] {
     return [
+      /*
       {
         // For Loading
         remoteEntry: "http://localhost:4201/remoteEntry.js",
@@ -38,6 +39,7 @@ export class MicrofrontendService {
         routePath: "profile",
         ngModuleName: "ProfileModule",
       },
+      */
       {
         // For Loading
         remoteEntry: "http://localhost:8081/remoteEntry.js",
