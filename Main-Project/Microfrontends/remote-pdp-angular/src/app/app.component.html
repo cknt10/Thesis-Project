@@ -1,0 +1,46 @@
+<div class="pdp">
+  <div class="pdp_container">
+    <div class="pdp_image-wrapper">
+      <img src="{{firstItem.imgSrc}}" class="pdp_image">
+    </div>
+    <div class="pdp_product-content">
+      <div class="pdp_taglist">
+        <div *ngFor="let badge of firstItem.badges">
+          <div class="pdp_tag">{{ badge }}</div>
+        </div>
+      </div>
+      <h1>{{firstItem.headline}}</h1>
+      <h2>{{firstItem.price | currency:"EUR":true}}</h2>
+      <section class="pdp_desc">
+        <div>
+          {{firstItem.description}}
+        </div>
+      </section>
+      <section>
+        <div class="pdp_sizes">
+          <div>
+            Größe:
+          </div>
+          <form>
+            <select name="sizes" class="slct">
+              <ng-container *ngFor="let size of firstItem.sizes">
+                <option value="{{size}}">{{size}}</option>
+              </ng-container>
+            </select>
+          </form>
+        </div>
+      </section>
+      <div class="pdp_deliv">
+        Lieferzeit: 3-5 Tage
+      </div>
+      <div class="pdp_positioner">
+
+        <button class="pdp_cta">
+          Add To Cart
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
