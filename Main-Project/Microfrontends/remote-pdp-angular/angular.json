@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "remote-pdp-angular": {
+    "pdp": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -18,9 +18,9 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "ngx-build-plus:browser",
           "options": {
-            "outputPath": "dist/remote-pdp-angular",
+            "outputPath": "dist/pdp",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -33,7 +33,9 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "extraWebpackConfig": "webpack.config.js",
+            "commonChunk": false
           },
           "configurations": {
             "production": {
@@ -42,11 +44,6 @@
                   "type": "initial",
                   "maximumWarning": "500kb",
                   "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
                 }
               ],
               "fileReplacements": [
@@ -55,7 +52,8 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "extraWebpackConfig": "webpack.prod.config.js"
             },
             "development": {
               "buildOptimizer": false,
@@ -69,25 +67,31 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "ngx-build-plus:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "remote-pdp-angular:build:production"
+              "browserTarget": "pdp:build:production",
+              "extraWebpackConfig": "webpack.prod.config.js"
             },
             "development": {
-              "browserTarget": "remote-pdp-angular:build:development"
+              "browserTarget": "pdp:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 8084,
+            "extraWebpackConfig": "webpack.config.js"
+          }
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "builder": "ngx-build-plus:extract-i18n",
           "options": {
-            "browserTarget": "remote-pdp-angular:build"
+            "browserTarget": "pdp:build",
+            "extraWebpackConfig": "webpack.config.js"
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "ngx-build-plus:karma",
           "options": {
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
@@ -107,5 +111,5 @@
       }
     }
   },
-  "defaultProject": "remote-pdp-angular"
+  "defaultProject": "pdp"
 }
