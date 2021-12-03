@@ -27,7 +27,7 @@ const buildSearchbar = () => {
     }
 
     console.log("hier");
-    poll(() => { return document.querySelector('#shell_root')}, 2000, 10).then((el) => {
+    poll(() => { return document.querySelector('#searchbar_container')}, 2000, 10).then((el) => {
         mount(el);
     })
     // mount(document.querySelector('#shell_root'));

@@ -5,22 +5,25 @@ import { loadRemoteModule } from "./utils/federation-utils";
 
 const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
-  { path: "home", component: HomeComponent },
-  {
-    path: "profile",
-    loadChildren: () =>
-      loadRemoteModule({
-        remoteName: "profile",
-        remoteEntry: "http://localhost:4201/remoteEntry.js",
-        exposedModule: "ProfileModule",
-      }).then((m) => m.ProfileModule),
+  { path: "home", component: HomeComponent, children: [
+
+    {
+      path: "",
+      loadChildren: () =>
+        loadRemoteModule({
+          remoteName: "recommendation",
+          remoteEntry: "http://localhost:8081/remoteEntry.js",
+          exposedModule: "AppModule",
+        }).then((m) => m.AppModule),
+      }, 
+    ]
   },
   {
-    path: "home",
+    path: "pdp",
     loadChildren: () =>
       loadRemoteModule({
-        remoteName: "home",
-        remoteEntry: "http://localhost:8081/remoteEntry.js",
+        remoteName: "pdp",
+        remoteEntry: "http://localhost:8084/remoteEntry.js",
         exposedModule: "AppModule",
       }).then((m) => m.AppModule),
   },

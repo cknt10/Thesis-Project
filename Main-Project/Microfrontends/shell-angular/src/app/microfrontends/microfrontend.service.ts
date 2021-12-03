@@ -51,6 +51,17 @@ export class MicrofrontendService {
         routePath: "recommendation",
         ngModuleName: "AppModule",
       },
+      {
+        // For Loading
+        remoteEntry: "http://localhost:8084/remoteEntry.js",
+        remoteName: "pdp",
+        exposedModule: "AppModule",
+
+        // For Routing, enabling us to ngFor over the microfrontends and dynamically create links for the routes
+        displayName: "Produktansicht",
+        routePath: "pdp",
+        ngModuleName: "AppModule",
+      },
     ];
   }
 }
