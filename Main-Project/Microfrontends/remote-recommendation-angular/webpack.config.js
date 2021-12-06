@@ -10,7 +10,7 @@ sharedMappings.register(
 
 module.exports = {
   output: {
-    uniqueName: "recommendation",
+    uniqueName: "home",
     publicPath: "http://localhost:8081/"
   },
   optimization: {
@@ -25,8 +25,8 @@ module.exports = {
     new ModuleFederationPlugin({
 
         // For remotes (please adjust)
-        name: "recommendation",
-        library: { type: "var", name: "recommendation" },
+        name: "home",
+        library: { type: "var", name: "home" },
         filename: "remoteEntry.js",
         exposes: {
           AppModule:

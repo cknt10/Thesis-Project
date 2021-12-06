@@ -13,7 +13,7 @@ export function initializeApp(
 }
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     RouterModule.forRoot(APP_ROUTES, { relativeLinkResolution: "legacy" }),

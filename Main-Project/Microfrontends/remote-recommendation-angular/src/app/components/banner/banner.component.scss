@@ -1,0 +1,22 @@
+.walker_container {
+  padding: 10px;
+  height: 400px;
+  color: white;
+  //color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  background-image: url(../../../assets/neonslide.jpg);
+  background-size:     cover;                      /* <------ */
+  background-repeat:   no-repeat;
+  background-position: center center;
+
+  h1{
+    font-size: 4rem;
+  }
+
+  h2{
+    font-size: 3rem;
+  }
+
+}

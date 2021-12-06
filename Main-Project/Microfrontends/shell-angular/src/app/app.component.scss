@@ -1,3 +1,5 @@
+@import 'vendor/vars.scss';
+
 #shell_root{
   margin-left: auto;
   margin-right: 10px;
@@ -26,5 +28,5 @@
 }
 
 .nav-item a:hover {
-  color: slategray;
+  color: $power;
 }

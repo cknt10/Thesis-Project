@@ -6,6 +6,7 @@ import { CarouselComponent } from '../components/carousel/carousel.component';
 import { CardComponent } from '../components/carousel/card/card.component';
 
 import { SwiperModule } from 'swiper/angular';
+import { BannerComponent } from '../components/banner/banner.component';
 
 @NgModule({
   imports: [
@@ -16,11 +17,13 @@ import { SwiperModule } from 'swiper/angular';
   declarations: [
     CarouselComponent,
     CardComponent,
+    BannerComponent
   ],
   exports: [
     CarouselComponent,
     CardComponent,
-    CommonModule
+    CommonModule,
+    BannerComponent
   ]
 })
 export class ComponentsModule { }
