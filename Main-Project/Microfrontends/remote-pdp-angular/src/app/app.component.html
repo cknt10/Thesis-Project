@@ -1,19 +1,19 @@
 <div class="pdp">
   <div class="pdp_container">
     <div class="pdp_image-wrapper">
-      <img src="{{firstItem.imgSrc}}" class="pdp_image">
+      <img src="{{item.imgSrc}}" class="pdp_image">
     </div>
     <div class="pdp_product-content">
       <div class="pdp_taglist">
-        <div *ngFor="let badge of firstItem.badges">
+        <div *ngFor="let badge of item.badges">
           <div class="pdp_tag">{{ badge }}</div>
         </div>
       </div>
-      <h1>{{firstItem.headline}}</h1>
-      <h2>{{firstItem.price | currency:"EUR":true}}</h2>
+      <h1>{{item.headline}}</h1>
+      <h2>{{item.price | currency:"EUR":true}}</h2>
       <section class="pdp_desc">
         <div>
-          {{firstItem.description}}
+          {{item.description}}
         </div>
       </section>
       <section>
@@ -23,7 +23,7 @@
           </div>
           <form>
             <select name="sizes" class="slct">
-              <ng-container *ngFor="let size of firstItem.sizes">
+              <ng-container *ngFor="let size of item.sizes">
                 <option value="{{size}}">{{size}}</option>
               </ng-container>
             </select>

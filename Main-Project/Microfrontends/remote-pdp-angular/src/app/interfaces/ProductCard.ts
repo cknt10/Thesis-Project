@@ -1,4 +1,5 @@
 export interface ProductCard{
+  id: number;
   headline: string;
   description: string;
   categories: string[];

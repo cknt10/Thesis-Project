@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ProductCard } from 'src/app/interfaces/ProductCard';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card',
@@ -8,7 +9,10 @@ import { ProductCard } from 'src/app/interfaces/ProductCard';
 })
 export class CardComponent implements OnInit {
 
+  private router: Router;
+
   @Input() item: ProductCard = {
+    id: 0,
     headline: '',
     description: '',
     categories: [],
@@ -28,10 +32,19 @@ export class CardComponent implements OnInit {
   //   imgSrc: 'https://sc04.alicdn.com/kf/Ua492f96639a44f56a19d89def7ed9d595.jpg'
   // }
 
-  constructor() { }
+  constructor(r: Router) {
+    this.router = r;
+  }
 
   ngOnInit(): void {
 
+  }
+
+  routeToPDP(){
+    console.log(this.router.url, this.item.id, "my log");
+    //this.router.navigate(['./pdp']);
+    //this.router.navigate(['/pdp', `${this.item.id}`]);
+    this.router.navigate(['/pdp', `${this.item.id}`]);
   }
 
 }

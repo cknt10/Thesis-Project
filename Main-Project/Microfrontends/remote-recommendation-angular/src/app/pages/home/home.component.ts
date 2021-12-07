@@ -11,6 +11,7 @@ export class HomeComponent implements OnInit {
   public items: ProductCard[]= [];
 
   firstItem: ProductCard = {
+    id: 1,
     headline: "Martha's Hoodie",
     description: 'Feminime Bequemlichkeit im Urban-Style.',
     categories: ["Women, Kids"],
@@ -21,6 +22,7 @@ export class HomeComponent implements OnInit {
   }
 
   secondItem: ProductCard = {
+    id: 2,
     headline: 'The Roadrunner',
     description: 'Für heiße Sohlen an kühlen Tagen.',
     categories: ["Sports"],
@@ -31,6 +33,7 @@ export class HomeComponent implements OnInit {
   }
 
   thirdItem: ProductCard = {
+    id: 3,
     headline: 'The Chiller',
     description: 'Das Alpaka friert jetzt.',
     categories: ["Home"],
