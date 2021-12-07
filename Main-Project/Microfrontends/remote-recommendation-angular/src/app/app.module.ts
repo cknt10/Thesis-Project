@@ -9,7 +9,7 @@ import { PagesModule } from './modules/pages.module';
   ],
   imports: [
     BrowserModule,
-    PagesModule
+    PagesModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
