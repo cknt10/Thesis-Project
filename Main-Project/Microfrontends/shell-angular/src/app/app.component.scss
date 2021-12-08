@@ -30,3 +30,11 @@
 .nav-item a:hover {
   color: $power;
 }
+
+@media (min-width: 1280px) {
+
+  .mfe_container{
+    width: 80vw;
+    margin: 0 auto;
+  }
+}
