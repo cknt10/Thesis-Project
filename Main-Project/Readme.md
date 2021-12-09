@@ -1,11 +1,9 @@
 # Übersicht der Node-basierten Prozesse der lokalen Entwicklungsumgebung
 
-## Imhaltsverzeichnis
-1. [Microfrontends](#mfe)
+## Inhaltsverzeichnis
+1. [Microfrontends](#microfrontends)
 2. [Installation](#mfe-installation)
-3. [Microservices](#ms)
-4. [Collaboration](#collaboration)
-5. [FAQs](#faqs)
+3. [Microservices](#microservices)
 
 ### Microfrontends
 
