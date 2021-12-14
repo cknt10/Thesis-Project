@@ -98,7 +98,7 @@ app.listen(port, () => {
     
     productCollection.set(product.id, product);
     await axios.post('http://localhost:7999/events', {
-      type: 'ProductCreated',
+      type: 'NewProduct',
       data: product
     });
   });

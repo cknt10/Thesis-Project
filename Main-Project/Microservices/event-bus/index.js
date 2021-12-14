@@ -12,7 +12,7 @@ app.use(express.json());
 app.post('/events', (req, res)=>{
     const event = req.body;
 
-    events.push(event)
+    events.push(event);
 
     axios.post('http://localhost:8085/events', event).catch((err) => {
         console.log(err.message, `got ${event} while sending to pdp-service`);
@@ -36,6 +36,7 @@ app.post('/events', (req, res)=>{
 });
 
 app.get('/events', (req, res) => {
+    console.log("events", events);
     res.send(events);
 });
 

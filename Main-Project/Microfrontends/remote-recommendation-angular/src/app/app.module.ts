@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+
 import { AppComponent } from './app.component';
 import { PagesModule } from './modules/pages.module';
 
@@ -9,6 +11,7 @@ import { PagesModule } from './modules/pages.module';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     PagesModule,
   ],
   providers: [],

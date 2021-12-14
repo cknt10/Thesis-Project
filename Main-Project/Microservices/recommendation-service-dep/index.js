@@ -16,7 +16,8 @@ const products = {};
 const handleEvent = async (type, data) => {
   if(type === 'NewProduct'){
 
-    const product = data.product;
+    const product = data;
+    console.log("NewProduct", data);
 
     products[product.id] = {
       type: type,
@@ -40,7 +41,16 @@ const handleEvent = async (type, data) => {
 }
 
 app.get('/products', (req, res) => {
-  res.send(products);
+  console.log("request -> response:", products);
+
+  responseValue = Object.keys(products).map(key => {
+    return products[key].product;
+  })
+
+  console.log("new resp",responseValue);
+
+  res.status(201).send(responseValue);
+  //res.status(201).send(products);
 });
 
 app.post('/events', async (req, res) => {
@@ -93,7 +103,7 @@ app.listen(port, async () => {
   const res = await axios.get('http://localhost:7999/events');
 
   for (let event of res.data){
-      console.log("processing event:", event.type);
+      console.log("processing event:", event.type, event.data);
 
       handleEvent(event.type, event.data);
   }

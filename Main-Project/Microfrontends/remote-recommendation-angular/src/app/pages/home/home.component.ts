@@ -1,5 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { ProductCard } from 'src/app/interfaces/ProductCard';
+import { RecommendationService } from 'src/app/services/recommendation.service';
 
 @Component({
   selector: 'app-home',
@@ -43,10 +44,10 @@ export class HomeComponent implements OnInit {
     imgSrc: 'https://kk-ck-microfrontend.s3.eu-central-1.amazonaws.com/recommendation/white.png'
   }
 
-  constructor() { }
+  constructor(private recoService_: RecommendationService) {}
 
   ngOnInit(): void {
-
+    this.fetchProducts()
   }
 
   addItem(){
@@ -59,6 +60,16 @@ export class HomeComponent implements OnInit {
     let temp :ProductCard[]= [];
     this.items = this.items.concat(temp);
     console.log("items", this.items);
+  }
+
+  async fetchProducts(){
+
+    let newProducts = await this.recoService_.getProducts("ka");
+    // this.items.push(newProducts);
+    this.items = newProducts;
+    let temp :ProductCard[]= [];
+    this.items = this.items.concat(temp);
+    console.log("fetch items", this.items);
   }
 
 }
