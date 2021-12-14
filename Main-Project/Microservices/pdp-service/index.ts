@@ -30,9 +30,6 @@ app.use(cors(options));
 
 var productCollection=new Map<string , ProductCard>();
 
-tempItems.forEach(product => {
-  productCollection.set(product.id, product);
-});
 
 app.get('/product', (req,res) => {
 
@@ -80,7 +77,7 @@ app.post('/product',async (req,res) => {
     console.log("the collection",productCollection, typeof newProduct);
 
     await axios.post('http://localhost:7999/events', {
-      type: 'PostCreated',
+      type: 'NewProduct',
       data: newProduct
     });
 
@@ -95,5 +92,16 @@ app.post('/events',async (req,res) => {
 
 app.listen(port, () => {
 
-    console.log(`localhost startet @port ${port}`);
+  console.log(`localhost startet @port ${port}`);
+
+  tempItems.forEach(async product => {
+    
+    productCollection.set(product.id, product);
+    await axios.post('http://localhost:7999/events', {
+      type: 'ProductCreated',
+      data: product
+    });
+  });
+
+
 });

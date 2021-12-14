@@ -15,7 +15,7 @@ app.post('/events', (req, res)=>{
     events.push(event)
 
     axios.post('http://localhost:8085/events', event).catch((err) => {
-        console.log(err.message, `got ${event} while sending to posts`);
+        console.log(err.message, `got ${event} while sending to pdp-service`);
         }); //posts
 
     axios.post('http://localhost:8084/events', event).catch((err) => {
@@ -23,7 +23,7 @@ app.post('/events', (req, res)=>{
         }); //comments
 
     axios.post('http://localhost:8086/events', event).catch((err) => {
-        console.log(err.message, `got ${event} while sending to query`);
+        console.log(err.message, `got ${event} while sending to recommendation-service`);
         }); //query post/comments
 
     axios.post('http://localhost:8087/events', event).catch((err) => {

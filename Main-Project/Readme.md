@@ -40,10 +40,12 @@ Ansonsten:
 
 #### Ports
 
-localhost:8085
+localhost:8085 -> pdp-service
 
-localhost:8086
+localhost:8086 -> recommendation-service
 
 localhost:8087
 
 localhost:8088
+
+localhost:7999 -> event bus-service
