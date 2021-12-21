@@ -7,6 +7,7 @@ import { CardComponent } from '../components/carousel/card/card.component';
 
 import { SwiperModule } from 'swiper/angular';
 import { BannerComponent } from '../components/banner/banner.component';
+import { WelcomeComponent } from '../components/welcome/welcome.component';
 
 @NgModule({
   imports: [
@@ -17,13 +18,15 @@ import { BannerComponent } from '../components/banner/banner.component';
   declarations: [
     CarouselComponent,
     CardComponent,
-    BannerComponent
+    BannerComponent,
+    WelcomeComponent
   ],
   exports: [
     CarouselComponent,
     CardComponent,
     CommonModule,
-    BannerComponent
+    BannerComponent,
+    WelcomeComponent
   ]
 })
 export class ComponentsModule { }
