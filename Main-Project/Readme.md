@@ -44,7 +44,7 @@ localhost:8085 -> pdp-service
 
 localhost:8086 -> recommendation-service
 
-localhost:8087
+localhost:8087 -> search-service
 
 localhost:8088
 

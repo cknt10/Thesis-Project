@@ -1,0 +1,10 @@
+{
+    "scripts": {
+        "init-ms": 
+        "npm --prefix event-bus i & npm --prefix pdp-service i & npm --prefix recommendation-service-dep i & npm --prefix search-service-dep i",
+        "start-bus":
+        "npm --prefix event-bus run start",
+        "start-ms":
+        "npm --prefix pdp-service run start & npm --prefix recommendation-service-dep run start & npm --prefix search-service-dep run start"
+    } 
+}

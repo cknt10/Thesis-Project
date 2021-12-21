@@ -63,40 +63,6 @@ app.post('/events', async (req, res) => {
   res.send({});
 });
 
-
-/*
-app.post('/events', async (req,res) => {
-  
-  const { type, data} = req.body;
-
-  console.log("Received Comment-Event from bus", type);
-
-  if(type === 'CommentModerated'){
-    const { postId, id, status, comment } = data;
-    const comments = commentsByPostId[postId];
-
-    const oldComment = comments.find(comment => {
-      return comment.id === id;
-    });
-    oldComment.status = status;
-
-    await axios.post('http://localhost:7999/events', {
-      type: 'CommentUpdated',
-      data: {
-        id,
-        status,
-        postId, 
-        comment,
-      }
-    }).catch((err) => {
-        console.log(err.message);
-      });;
-  }
-
-  res.send({});
-});
-*/
-
 app.listen(port, async () => {
   console.log(`Listening on ${port}`);
 
