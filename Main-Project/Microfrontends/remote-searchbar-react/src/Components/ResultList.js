@@ -6,12 +6,12 @@ const ResultList = ({resultList=[]}) => {
     { resultList.map((data,index) => {
         if (data) {
           return (
-            <div key={data.name}>
-              <h1>{data.name}</h1>
-	    </div>	
-    	   )	
-    	 }
-    	 return null
+            <div key={data.product.headline}>
+              <h1>{data.product.headline}</h1>
+	          </div>
+          )
+        }
+        return null;
     }) }
     </>
   );

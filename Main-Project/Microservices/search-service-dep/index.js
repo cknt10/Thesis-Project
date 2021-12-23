@@ -11,12 +11,12 @@ app.use(cors());
 const products = {};
 
 const handleEvent = (type, data) => {
-    if(type === 'New Product'){
+    if(type === 'NewProduct'){
 
         const { id, headline} = data;
 
         products[id] = {
-            type: type,
+            type: "SearchProduct",
             product: {
               id: id,
               headline: headline
@@ -25,14 +25,32 @@ const handleEvent = (type, data) => {
     }
 }
 
-app.get('/events', (req, res)=>{
- res.send(products);
+app.get('/events', (req, res) => {
+
+
+    res.send(products);
 });
 
 app.get('/searchresult', (req, res)=>{
     console.log("request", req.body);
 
-    res.send(products);
+    const keys = Object.keys(products);
+    const values = keys.map(key => {
+        return products[key];
+    });
+
+
+    //let tempstr = "i";
+    let response = [];
+
+    values.forEach(entry => {
+        //if(entry.product.headline.includes(tempstr))response.push(entry);
+        response.push(entry);
+    });
+
+    console.log("my resp", response);
+
+    res.send(response);
 });
 
 app.post('/events', (req, res)=>{
