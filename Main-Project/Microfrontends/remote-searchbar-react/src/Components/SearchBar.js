@@ -1,7 +1,9 @@
 import React from 'react';
 
-const SearchBar = ({input,updateInput}) => {
+const SearchBar = (/*{input,updateInput}*/props) => {
 
+  console.log("props",props, props.onChange);
+  const updateInput = props.onChange;
   console.log("sb", typeof input, typeof updateInput);
 
   const BarStyling = {
@@ -15,7 +17,7 @@ const SearchBar = ({input,updateInput}) => {
     <input 
      style={BarStyling}
      key="random1"
-     value={input}
+     value={props.input}
      placeholder={"Suche"}
      onChange={(e) => updateInput(e.target.value)}
     />

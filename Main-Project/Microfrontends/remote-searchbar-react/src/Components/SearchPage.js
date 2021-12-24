@@ -24,10 +24,11 @@ const SearchPage = (props) => {
 
   const updateInput = async (input) => {
     
-    console.log("try update");
+    console.log("try update", resultListDefault);
      const filtered = resultListDefault.filter(result => {
+       console.log("result", result.product.headline);
 
-      return result.name.toLowerCase().includes(input.toLowerCase())
+      return result.product.headline.toLowerCase().includes(input.toLowerCase())
      });
      setInput(input);
      setResultList(filtered);
