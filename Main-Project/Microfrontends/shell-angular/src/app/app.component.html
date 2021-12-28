@@ -1,11 +1,13 @@
 <nav>
-  <ul class="nav-list">
-    <li class="nav-item"><a href="" target="_blank"><img width="148px" height="29px" src="https://kk-ck-microfrontend.s3.eu-central-1.amazonaws.com/shell/logo.png" /></a>
-    </li>
+  <ul class="nav-list nav-upper">
+    <li class="nav-item banner_logo"><a href="" target="_blank"><img width="122px" height="24px" src="https://kk-ck-microfrontend.s3.eu-central-1.amazonaws.com/shell/logo.svg"/></a></li> <!-- src="https://kk-ck-microfrontend.s3.eu-central-1.amazonaws.com/shell/logo.png" -->
+    <div id="searchbar_container"></div>
+    <li class="nav-item"><a href="">Login</a></li>
+  </ul>
+  <ul class="nav-list nav-lower">
     <!-- <li class="nav-item"><a routerLink="home">Home</a></li> -->
     <li class="nav-item" *ngFor="let microfrontend of mfService.microfrontends"><a
         [routerLink]="microfrontend.routePath">{{ microfrontend.displayName }}</a></li>
-  <div id="searchbar_container"></div>
   </ul>
 </nav>
 <!-- <div id="root"></div> -->

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductCard } from './interfaces/ProductCard';
+import { ProductService } from './services/product.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ export class AppComponent {
 
   tempItems : ProductCard[] = [
     {
-      id: 1,
+      id: "1",
       headline: "Martha's Hoodie",
       description: 'Feminime Bequemlichkeit im Urban-Style.',
       categories: ["Women, Kids"],
@@ -25,7 +26,7 @@ export class AppComponent {
       imgSrc: 'https://kk-ck-microfrontend.s3.eu-central-1.amazonaws.com/recommendation/pink.png'
     },
     {
-      id: 2,
+      id: "2",
       headline: 'The Roadrunner',
       description: 'Für heiße Sohlen an kühlen Tagen.',
       categories: ["Sports"],
@@ -36,7 +37,7 @@ export class AppComponent {
       imgSrc: 'https://kk-ck-microfrontend.s3.eu-central-1.amazonaws.com/recommendation/shoe.png'
     },
     {
-      id: 3,
+      id: "3",
       headline: 'The Chiller',
       description: 'Das Alpaka friert jetzt.',
       categories: ["Home"],
@@ -49,9 +50,9 @@ export class AppComponent {
   ]
 
 
-  constructor(private route: ActivatedRoute){
+  constructor(private route: ActivatedRoute, public s_product: ProductService){
     this.item = {
-      id: 0,
+      id: "0",
       headline: '',
       description: '',
       categories: [],
@@ -66,16 +67,13 @@ export class AppComponent {
 
 
   ngOnInit() {
+    /*
     this.route.queryParams
       .subscribe(params => {
         console.log(params); // { orderby: "price" }
         console.log("snap",this.route.snapshot.url[0]);
         this.tempItems.forEach(value => {
-          /*
-          if(value.id == params['id']){
-            this.item = value;
-          }
-          */
+
 
           if(value.id.toString() == this.route.snapshot.url[0].path){
             this.item = value;
@@ -84,6 +82,13 @@ export class AppComponent {
 
       }
     );
+    */
+
+    this.reqProduct();
+  }
+
+  async reqProduct(){
+    this.item = await this.s_product.getProduct(this.route.snapshot.url[0].path);
   }
 
   /*

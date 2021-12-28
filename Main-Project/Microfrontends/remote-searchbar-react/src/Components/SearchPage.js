@@ -8,25 +8,31 @@ const SearchPage = (props) => {
   const [resultList, setResultList] = useState();
 
   const fetchData = async () => {
-    return await fetch('https://restcountries.eu/rest/v2/all')
+    //return await fetch('https://restcountries.eu/rest/v2/all')
+    return await fetch('http://localhost:8087/searchresult', {
+      method: 'GET'
+    })
       .then(response => response.json())
       .then(data => {
-         setResultList(data) 
-         setResultListDefault(data)
+        console.log("data", data)
+        //setResultList(data);
+        setResultListDefault(data);
+        //setResultList([]);
+        //setResultListDefault([]);
+        //setResultListDefault(data);
        });}
 
   const updateInput = async (input) => {
+    
      const filtered = resultListDefault.filter(result => {
-      return result.name.toLowerCase().includes(input.toLowerCase())
-     })
+
+      return result.product.headline.toLowerCase().includes(input.toLowerCase())
+     });
      setInput(input);
      setResultList(filtered);
   }
 
   useEffect( () => {fetchData()},[]);
-
-
-  // <h1>Result List</h1>
 	
   return (
     <>
