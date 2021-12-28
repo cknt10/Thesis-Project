@@ -4,8 +4,11 @@ import SearchPage from './Components/SearchPage.js';
 
 
 export default () => {
+  const AppStyle = {
+    position: "relative"
+  }
   return (
-    <div className="App">
+    <div style={ AppStyle } className="App">
       <SearchPage />
     </div>
   );

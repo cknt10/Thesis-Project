@@ -24,9 +24,7 @@ const SearchPage = (props) => {
 
   const updateInput = async (input) => {
     
-    console.log("try update", resultListDefault);
      const filtered = resultListDefault.filter(result => {
-       console.log("result", result.product.headline);
 
       return result.product.headline.toLowerCase().includes(input.toLowerCase())
      });
@@ -35,8 +33,6 @@ const SearchPage = (props) => {
   }
 
   useEffect( () => {fetchData()},[]);
-
-  console.log("sp", typeof input, typeof updateInput);
 	
   return (
     <>

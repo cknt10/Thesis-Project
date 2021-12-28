@@ -28,6 +28,40 @@
   color: #61dafb;
 }
 
+.search_results{
+  position: absolute;
+  top: 48px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background-color: #fff;
+  /*border: 2px solid #fff;*/
+}
+
+.search_results div{
+  padding: .4rem .2rem;
+}
+
+.search_results div:hover{
+  color: rgb(197, 15, 163);
+  background-color: #EDEDEC;
+}
+
+.search_results div:hover a{
+  color: rgb(197, 15, 163);
+}
+
+.search_results a{
+  color: #000;
+  text-decoration: none;
+}
+
+/*
+.search_results a:hover{
+  color: rgb(197, 15, 163);
+}
+*/
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

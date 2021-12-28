@@ -2,12 +2,10 @@ import React from 'react';
 
 const SearchBar = (/*{input,updateInput}*/props) => {
 
-  console.log("props",props, props.onChange);
   const updateInput = props.onChange;
-  console.log("sb", typeof input, typeof updateInput);
 
   const BarStyling = {
-    width:"100%", 
+    width:"-webkit-fill-available", 
     background:"#F2F1F9", 
     border:"3px solid #C50FA3", 
     borderRadius: "12px",
