@@ -10,6 +10,8 @@ app.use(cors());
 
 const products = {};
 
+var loggedIn = false
+
 const handleEvent = (type, data) => {
     if(type === 'NewProduct'){
 
@@ -63,6 +65,15 @@ app.post('/events', (req, res)=>{
     res.send({});
 
 });
+
+app.post('/login', (req,res) => {
+
+    loggedIn = true;
+  
+    console.log("login on search-service")
+    
+    res.send({ status: 200 });
+  });
 
 app.listen(port, async () => {
     console.log(`search-service has startet on port ${port}`);

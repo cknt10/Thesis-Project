@@ -30,7 +30,6 @@ app.use(cors(options));
 
 var productCollection=new Map<string , ProductCard>();
 
-
 app.get('/product', (req,res) => {
 
   //@ts-ignore

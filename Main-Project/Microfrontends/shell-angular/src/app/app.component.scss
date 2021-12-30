@@ -39,12 +39,12 @@
   font-weight: 500;
 }
 
-.nav-item a {
+.nav-item a, .nav-item div {
   text-decoration: none;
   color: #fff;
 }
 
-.nav-item a:hover {
+.nav-item a:hover, .nav-item div:hover {
   color: $power;
 }
 

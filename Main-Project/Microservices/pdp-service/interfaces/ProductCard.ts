@@ -7,6 +7,7 @@ export interface ProductCard{
     badges: string[];
     sizes: string[];
     price: number;
+    privileges?: string[];
     imgSrc: string;
   }
   

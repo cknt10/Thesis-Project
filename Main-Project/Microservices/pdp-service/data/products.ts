@@ -33,6 +33,29 @@ const tempItems : ProductCard[] = [
       sizes:["S","M","L","XL"],
       price: 16.95,
       imgSrc: 'https://kk-ck-microfrontend.s3.eu-central-1.amazonaws.com/recommendation/white.png'
+    },
+    {
+      id: "4",
+      headline: 'Ghoul Shirt',
+      description: 'Ein wahrer Tokyo Ghoul-Fan kommt darn nicht vorbei, wenn er in Tokyos Seitenstraßen einbiegen will',
+      categories: ["Urban"],
+      tag: ["Ez-Wear","Slim","Sub-Culture"],
+      badges: [],
+      sizes:["S","M","L","XL"],
+      price: 30.90,
+      imgSrc: 'https://kk-ck-microfrontend.s3.eu-central-1.amazonaws.com/recommendation/ghoul.png'
+    },
+    {
+      id: "5",
+      headline: 'Neon Abyss-Aufnäher',
+      description: 'AAA war gestern.',
+      categories: ["Home"],
+      tag: ["Ez-Wear","Gaming"],
+      badges: [],
+      sizes:["8x6cm"],
+      price: 8.95,
+      privileges: ["VIP"],
+      imgSrc: 'https://kk-ck-microfrontend.s3.eu-central-1.amazonaws.com/recommendation/abyss.png'
     }
 ]
 

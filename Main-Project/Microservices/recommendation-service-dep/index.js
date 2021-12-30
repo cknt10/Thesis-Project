@@ -12,6 +12,7 @@ app.use(cors());
 const port = 8086;
 
 const products = {};
+var loggedIn = false;
 
 const handleEvent = async (type, data) => {
   if(type === 'NewProduct'){
@@ -61,6 +62,15 @@ app.post('/events', async (req, res) => {
   await handleEvent(type, data);
 
   res.send({});
+});
+
+app.post('/login', (req,res) => {
+
+  loggedIn = true;
+
+  console.log("login on recommendation-service")
+  
+  res.send({ status: 200 });
 });
 
 app.listen(port, async () => {
