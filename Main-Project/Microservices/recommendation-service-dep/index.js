@@ -30,6 +30,7 @@ const handleEvent = async (type, data) => {
         tag: product.tag,
         badges: product.badges,
         price: product.price,
+        privileges: product.privileges,
         imgSrc: product.imgSrc
       }
     };
@@ -44,9 +45,18 @@ const handleEvent = async (type, data) => {
 app.get('/products', (req, res) => {
   console.log("request -> response:", products);
 
-  responseValue = Object.keys(products).map(key => {
+  let responseValue = Object.keys(products).map(key => {
     return products[key].product;
-  })
+  });
+
+  if(!loggedIn){
+    responseValue = responseValue.filter(product => {
+      if(product.privileges && product.privileges.includes("VIP")){
+        return false;
+      }
+      else return true;
+    });
+  }
 
   console.log("new resp",responseValue);
 
@@ -64,11 +74,14 @@ app.post('/events', async (req, res) => {
   res.send({});
 });
 
-app.post('/login', (req,res) => {
+app.post('/defineUser', (req,res) => {
 
-  loggedIn = true;
+  const { value }= req.body
 
-  console.log("login on recommendation-service")
+  if(value === "login")loggedIn = true;
+  else if(value === "logout")loggedIn = false;
+
+  console.log("login on recommendation-service", req.body);
   
   res.send({ status: 200 });
 });

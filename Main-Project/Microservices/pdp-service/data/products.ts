@@ -37,7 +37,7 @@ const tempItems : ProductCard[] = [
     {
       id: "4",
       headline: 'Ghoul Shirt',
-      description: 'Ein wahrer Tokyo Ghoul-Fan kommt darn nicht vorbei, wenn er in Tokyos Seitenstraßen einbiegen will',
+      description: 'Ein wahrer Tokyo Ghoul-Fan kommt daran nicht vorbei, wenn er in Tokyos Seitenstraßen einbiegen will.',
       categories: ["Urban"],
       tag: ["Ez-Wear","Slim","Sub-Culture"],
       badges: [],

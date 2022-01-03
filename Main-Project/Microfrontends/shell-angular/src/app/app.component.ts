@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Component } from "@angular/core";
+import { Component, ComponentRef } from "@angular/core";
 import { MicrofrontendService } from "./microfrontends/microfrontend.service";
 import { LoginService } from "./services/login.service";
 
@@ -11,19 +11,55 @@ import buildSearchbar from './../react-middleware/searchbar';
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
+
+  private currentChild: any;
+  public isLoggedIn: boolean = false;
+
   constructor(public mfService: MicrofrontendService, private loginService: LoginService) {}
 
   ngOnInit() {
-     buildSearchbar();
+    buildSearchbar();
+    this.tryLogin();
+  }
+
+  async tryLogin(){
+    let success: boolean;
+
+    let lastState = await this.loginService.defineUser();
+    if(lastState === "logout"){
+      success = await this.loginService.defineUser("logout") as boolean;
+      //if(success)this.currentChild.ngOnInit();
+    }
+    else if(lastState === "login"){
+      this.isLoggedIn = true;
+    }
   }
 
   async login(){
-    console.log("try login");
-    let success = await this.loginService.login();
+
+    let success: boolean;
+
+    if(!this.isLoggedIn){
+      
+      console.log("try login");
+      success = await this.loginService.defineUser("login") as boolean;
+    }
+    else{
+      success = await this.loginService.defineUser("logout") as boolean;
+    }
     if(success){
-      console.log("Login completly successfull, user should get vip products too now");
+      console.log("Login/Logiut completly successfull, user should get vip products too now");
       console.log("Rebuild MFE's in process...");
       buildSearchbar();
+      this.currentChild.ngOnInit();
+      this.isLoggedIn = !this.isLoggedIn;
     }
+    //this.currentChild.ngOnInit();
+  }
+
+  referenceToChild(componentReference: any){
+    this.currentChild = componentReference;
+    console.log("newReference", componentReference, typeof componentReference);
+    //componentReference.ngOnInit()
   }
 }

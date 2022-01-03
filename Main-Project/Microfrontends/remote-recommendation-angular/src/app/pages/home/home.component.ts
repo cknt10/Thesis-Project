@@ -11,6 +11,7 @@ export class HomeComponent implements OnInit {
 
   public items: ProductCard[]= [];
 
+  /*
   firstItem: ProductCard = {
     id: 1,
     headline: "Martha's Hoodie",
@@ -43,15 +44,18 @@ export class HomeComponent implements OnInit {
     price: 16.95,
     imgSrc: 'https://kk-ck-microfrontend.s3.eu-central-1.amazonaws.com/recommendation/white.png'
   }
+  */
 
   constructor(private recoService_: RecommendationService) {}
 
   ngOnInit(): void {
-    this.fetchProducts()
+    console.log("init Reco-Home");
+    this.fetchProducts();
   }
 
   addItem(){
 
+    /*
     this.items.push(this.firstItem);
 
     this.items.push(this.secondItem);
@@ -59,7 +63,7 @@ export class HomeComponent implements OnInit {
 
     let temp :ProductCard[]= [];
     this.items = this.items.concat(temp);
-    console.log("items", this.items);
+    */
   }
 
   async fetchProducts(){
