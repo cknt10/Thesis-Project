@@ -15,13 +15,14 @@ var loggedIn = false
 const handleEvent = (type, data) => {
     if(type === 'NewProduct'){
 
-        const { id, headline} = data;
+        const { id, headline, privileges} = data;
 
         products[id] = {
             type: "SearchProduct",
             product: {
               id: id,
-              headline: headline
+              headline: headline,
+              privileges: privileges
             }
           };
     }
@@ -36,18 +37,17 @@ app.get('/events', (req, res) => {
 app.get('/searchresult', (req, res)=>{
     console.log("request", req.body);
 
-    const keys = Object.keys(products);
-    const values = keys.map(key => {
+    let keys = Object.keys(products);
+
+    let response = keys.map(key => {
         return products[key];
     });
 
-
-    //let tempstr = "i";
-    let response = [];
-
-    values.forEach(entry => {
-        //if(entry.product.headline.includes(tempstr))response.push(entry);
-        response.push(entry);
+    response = response.filter(product => {
+        if(!loggedIn && product.privileges && product.privileges.includes("VIP")){
+            return false;
+        }
+        else return true;
     });
 
     console.log("my resp", response);
@@ -66,11 +66,14 @@ app.post('/events', (req, res)=>{
 
 });
 
-app.post('/login', (req,res) => {
+app.post('/defineUser', (req,res) => {
 
-    loggedIn = true;
+    const { value }= req.body
   
-    console.log("login on search-service")
+    if(value === "login")loggedIn = true;
+    else if(value === "logout")loggedIn = false;
+  
+    console.log("login on search-service", req.body);
     
     res.send({ status: 200 });
   });

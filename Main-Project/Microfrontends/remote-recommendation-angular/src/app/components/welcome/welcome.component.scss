@@ -23,8 +23,54 @@ h1, h2, h3{
   font-weight: 200;
 }
 
-.welcome_bundles{
+.bundles_welcome{
   display: flex;
   flex-direction: row;
   justify-content: center;
+
+  > div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    margin: 2rem;
+
+    &:nth-child(1) img{
+
+        //margin-left: -60px;
+        transform: translateX(-60px);
+    }
+
+    &:nth-child(2) img{
+
+        transform: translate3d(-28px, -15px, 0) scale(1.2);
+    }
+
+    &:nth-child(3) img{
+
+      transform: translate3d(-28px, -15px, 0) scale(1.2);
+    }
+  }
+
+  .img_wrapper{
+    overflow: hidden;
+    border-radius: 50%;
+    border: #c510a3 2px solid;
+    width: 180px;
+    height: 180px;
+
+    img{
+      height: 100%;
+      transition: 1s ease;
+
+      &:hover{
+        //opacity: 0.8;
+        transform: scale(1.4) translateX(-10px);
+      }
+    }
+  }
+
+  .bundles_text{
+    font-size: 1.2rem;
+  }
 }
