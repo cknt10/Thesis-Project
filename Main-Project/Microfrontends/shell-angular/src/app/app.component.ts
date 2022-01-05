@@ -6,8 +6,6 @@ import { ActivatedRoute } from '@angular/router';
 // @ts-ignore
 import { mount } from 'searchbar/SearchbarApp';
 
-import buildSearchbar from './../react-middleware/searchbar';
-
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
