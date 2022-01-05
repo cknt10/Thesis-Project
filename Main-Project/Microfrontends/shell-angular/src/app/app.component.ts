@@ -3,6 +3,9 @@ import { MicrofrontendService } from "./microfrontends/microfrontend.service";
 import { LoginService } from "./services/login.service";
 import { ActivatedRoute } from '@angular/router';
 
+// @ts-ignore
+import { mount } from 'searchbar/SearchbarApp';
+
 import buildSearchbar from './../react-middleware/searchbar';
 
 @Component({
@@ -22,7 +25,9 @@ export class AppComponent {
     ) {}
 
   ngOnInit() {
-    buildSearchbar();
+    // @ts-ignore
+    mount(document.querySelector('#searchbar_container'))
+    //buildSearchbar();
     this.tryLogin();
   }
 
@@ -60,7 +65,9 @@ export class AppComponent {
         console.log("ehm", params);
       })
 
-      buildSearchbar();
+      // @ts-ignore
+      mount(document.querySelector('#searchbar_container'))
+      //buildSearchbar();
       this.currentChild.ngOnInit();
       this.isLoggedIn = !this.isLoggedIn;
     }
