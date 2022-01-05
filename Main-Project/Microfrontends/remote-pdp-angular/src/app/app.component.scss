@@ -165,9 +165,13 @@ h2{
 
 .casual_info{
   padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   article{
     font-size: 1.2rem;
+    max-width: 1024px;
   }
 }
 

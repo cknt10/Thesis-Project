@@ -1,7 +1,7 @@
-import { HttpClient } from "@angular/common/http";
 import { Component, ComponentRef } from "@angular/core";
 import { MicrofrontendService } from "./microfrontends/microfrontend.service";
 import { LoginService } from "./services/login.service";
+import { ActivatedRoute } from '@angular/router';
 
 import buildSearchbar from './../react-middleware/searchbar';
 
@@ -15,7 +15,11 @@ export class AppComponent {
   private currentChild: any;
   public isLoggedIn: boolean = false;
 
-  constructor(public mfService: MicrofrontendService, private loginService: LoginService) {}
+  constructor(
+    public mfService: MicrofrontendService,
+    private loginService: LoginService,
+    private route: ActivatedRoute
+    ) {}
 
   ngOnInit() {
     buildSearchbar();
@@ -50,6 +54,12 @@ export class AppComponent {
     if(success){
       console.log("Login/Logiut completly successfull, user should get vip products too now");
       console.log("Rebuild MFE's in process...");
+
+      this.route.queryParams.subscribe(params => {
+        
+        console.log("ehm", params);
+      })
+
       buildSearchbar();
       this.currentChild.ngOnInit();
       this.isLoggedIn = !this.isLoggedIn;

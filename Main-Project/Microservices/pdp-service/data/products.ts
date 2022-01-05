@@ -51,7 +51,7 @@ const tempItems : ProductCard[] = [
       description: 'AAA war gestern.',
       categories: ["Home"],
       tag: ["Ez-Wear","Gaming"],
-      badges: [],
+      badges: ["Premium"],
       sizes:["8x6cm"],
       price: 8.95,
       privileges: ["VIP"],
