@@ -26,7 +26,11 @@ const SearchPage = (props) => {
     
      const filtered = resultListDefault.filter(result => {
 
-      return result.product.headline.toLowerCase().includes(input.toLowerCase())
+      if(input){
+
+        return result.product.headline.toLowerCase().includes(input.toLowerCase());
+      }
+      else return false;
      });
      setInput(input);
      setResultList(filtered);

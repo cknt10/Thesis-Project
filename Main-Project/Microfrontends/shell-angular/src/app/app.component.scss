@@ -35,6 +35,10 @@
 .nav-item {
   list-style: none;
 
+  &.btn_login{
+    cursor: pointer;
+  }
+
   &:not(.banner_logo){
 
     margin: 0 2rem;
@@ -60,6 +64,39 @@
 nav{
   position: sticky;
   top: 0;
+}
+
+footer{
+  padding: 3rem 3rem 1rem 3rem;
+
+  .line{
+    border: 1px solid $button;
+    margin-bottom: 2rem;
+  }
+
+  .links{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 1.2rem;
+    
+    & > a{
+      padding: 1rem;
+      text-decoration: none;
+      color: #000;
+
+      &:hover{
+        color: $power;
+      }
+    }
+  }
+
+  .copyright{
+    font-style: italic;
+    display: flex;
+    justify-content: end;
+    padding: 1rem;
+  }
 }
 
 @media (min-width: 768px){

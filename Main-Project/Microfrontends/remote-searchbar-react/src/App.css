@@ -56,6 +56,17 @@
   text-decoration: none;
 }
 
+.search_results div{
+  background-color: #EDEDEC;
+  border-left: 1px solid;
+  border-right: 1px solid;
+  border-color: #000;
+}
+
+.search_results div:last-child{
+  border-bottom: 1px solid #000;
+}
+
 /*
 .search_results a:hover{
   color: rgb(197, 15, 163);
