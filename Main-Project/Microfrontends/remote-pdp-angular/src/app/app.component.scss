@@ -6,10 +6,9 @@
 
 .pdp_image-wrapper{
   background-color: white;
-  padding: 4rem;
 
   img{
-    width: 500px;
+    width: 380px;
   }
 }
 
@@ -31,6 +30,7 @@
 .pdp_container{
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 
   section{
     padding:0 0 2rem 0;
@@ -147,33 +147,6 @@
   border-color: #aaa;
 }
 
-/*
-.slct{
-  display: block;
-  font-size: 16px;
-  font-family: sans-serif;
-  font-weight: 700;
-  color: #444;
-  line-height: 1.3;
-  padding: .6em 1.4em .5em .8em;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  margin: 0;
-  border: 1px solid #aaa;
-  box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
-  border-radius: .5em;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
-  background-color: #fff;
-}
-*/
-
-.pdp_deliv{
-  //margin: 0 0 2rem 0;
-}
-
 .pdp_positioner{
   display: flex;
   align-items: flex-end;
@@ -188,4 +161,22 @@ h1{
 h2{
   font-size: 2.6rem;
   font-weight: 200;
+}
+
+.casual_info{
+  padding: 4rem;
+
+  article{
+    font-size: 1.2rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .pdp_image-wrapper{
+    padding: 4rem;
+
+    img{
+      width: 500px;
+    }
+  }
 }

@@ -6,8 +6,12 @@
   </ul>
   <ul class="nav-list nav-lower">
     <!-- <li class="nav-item"><a routerLink="home">Home</a></li> -->
-    <li class="nav-item" *ngFor="let microfrontend of mfService.microfrontends"><a
-        [routerLink]="microfrontend.routePath">{{ microfrontend.displayName }}</a></li>
+    <li class="nav-item" *ngFor="let microfrontend of mfService.microfrontends">
+      <ng-container *ngIf='microfrontend.displayName !== "Produktansicht"'>
+
+        <a [routerLink]="microfrontend.routePath">{{ microfrontend.displayName }}</a>
+      </ng-container>
+    </li>
   </ul>
 </nav>
 <!-- <div id="root"></div> -->
@@ -15,3 +19,4 @@
 <div class="mfe_container">
   <router-outlet (activate)="referenceToChild($event)"></router-outlet>
 </div>
+<!--TODO: Footer-->

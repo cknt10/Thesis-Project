@@ -13,6 +13,46 @@ h2.slider-headline{
   padding: 16px;
 }
 
+.slider-wrapper{
+
+  max-width: 1500px;
+  margin-left: auto;
+  margin-right: auto;
+
+  &>div {
+    position: relative;
+
+    .swiper-arrow{
+
+      position: absolute;
+      padding: 1.4rem;
+      top: 50%;
+      z-index: 1;
+      border-radius: 50%;
+      border: none;
+      background: rgb(31, 31, 31, 0.6);
+
+      &:before{
+        top: 10px;
+        left: 10px;
+        position: absolute;
+        width: 1.5rem;
+        height: 1.5rem;
+        content: "";
+        background-image: url('data:image/svg+xml;charset=UTF-8, <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" clip-rule="evenodd"><path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg>');
+      }
+
+      &.previous-slide{
+        transform: scaleX(-1);
+        left: 0;
+      }
+
+      &.next-slide{
+        right: 0;
+      }
+    }
+  }
+}
 
 ///////////////Swiper (inner wraper)//////////////
 .swiper-wrapper{
@@ -90,6 +130,14 @@ app-card{
 
       }
     }
+  }
+
+  .previous-slide{
+    left: -16px;
+  }
+
+  .next-slide{
+    right: -16px;
   }
 
 }

@@ -78,9 +78,12 @@ export class CarouselComponent implements OnInit {
   calculateSlider(device: DeviceProperty): SwiperOptions{
     console.log("my device", device);
     return {
-      slidesPerView: ((device ==="mobile")?2:(device ==="tablet" || device === "desktop_small")?3:3),
+      slidesPerView: ((device ==="mobile")?2:(device ==="tablet" || device === "desktop_small")?3:4),
       spaceBetween: ((device ==="mobile")?16:(device ==="tablet" || device === "desktop_small")?28:80),
-      navigation: true,
+      navigation: {
+        nextEl: '.next-slide',
+        prevEl: '.previous-slide',
+      },
       //
       /*
       effect: 'coverflow',
