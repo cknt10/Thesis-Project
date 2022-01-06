@@ -9,7 +9,13 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
 ];
 
- //const remoteDecider = process.env['NODE_ENV'] === "development" ? RouterModule.forRoot(routes): RouterModule.forChild(routes);
+let remoteDecider =  RouterModule.forChild(routes);
+
+if(window.location.port === "8081"){
+  remoteDecider = RouterModule.forRoot(routes);
+}
+
+//const remoteDecider =  window.location.port === "8081" ? RouterModule.forRoot(routes): RouterModule.forChild(routes);
 
 @NgModule({
   declarations: [
@@ -18,8 +24,9 @@ const routes: Routes = [
   imports: [
     //CommonModule,
     ComponentsModule,
+    remoteDecider,
     //RouterModule.forRoot(routes)
-    RouterModule.forChild(routes)
+    //RouterModule.forChild(routes)
   ],
   exports: [
     ComponentsModule,
