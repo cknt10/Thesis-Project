@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-welcome',
@@ -19,5 +19,18 @@ export class WelcomeComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  @HostListener('event-bus:get-variations', ['$event'])
+  change(event: Event) {
+    console.log("gotEvent",event);
+  }
+
+  getVariation(){
+
+    console.log("get Variation");
+    // @ts-ignore
+    eventBusGetVariations();
+  }
+
 
 }
