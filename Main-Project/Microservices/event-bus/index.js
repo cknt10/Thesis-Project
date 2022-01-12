@@ -8,7 +8,9 @@ const port = 7999;
 
 const events = [];
 const loginState = ["logout"];
-
+const variation = {
+    recommendation: ["v1"]
+};
 
 app.use(express.json());
 app.use(cors());//Wäre bei einem Login Service nicht nötig
@@ -38,6 +40,11 @@ app.post('/events', (req, res)=>{
 app.get('/events', (req, res) => {
     console.log("events", events);
     res.send(events);
+});
+
+app.get('/getVariations', (req, res) => {
+    console.log("events", events);
+    res.send({data: variation});
 });
 
 app.post('/defineUser',async (req, res)=>{

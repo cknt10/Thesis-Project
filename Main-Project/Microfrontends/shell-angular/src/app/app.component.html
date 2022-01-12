@@ -5,7 +5,6 @@
     <li class="nav-item btn_login" (click)="login()"><div>{{isLoggedIn?'Logout':'Login'}}</div></li>
   </ul>
   <ul class="nav-list nav-lower">
-    <!-- <li class="nav-item"><a routerLink="home">Home</a></li> -->
     <li class="nav-item" *ngFor="let microfrontend of mfService.microfrontends">
       <ng-container *ngIf='microfrontend.displayName !== "Produktansicht"'>
 
@@ -14,7 +13,6 @@
     </li>
   </ul>
 </nav>
-<!-- <div id="root"></div> -->
 
 <div class="mfe_container">
   <router-outlet (activate)="referenceToChild($event)"></router-outlet>

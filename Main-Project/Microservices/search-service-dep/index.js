@@ -60,8 +60,6 @@ app.post('/events', (req, res)=>{
 
     handleEvent(type, data);
 
-    console.log(posts);
-
     res.send({});
 
 });

@@ -20,16 +20,21 @@ export class WelcomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  @HostListener('event-bus:get-variations', ['$event'])
-  change(event: Event) {
+  v1 = false;
+
+  @HostListener('document:voodoo-get-variations', ['$event'])
+  change(event: any) {
     console.log("gotEvent",event);
+    if(event.detail.data.recommendation.includes("v1")){
+      this.v1 = true;
+    }
   }
 
   getVariation(){
 
     console.log("get Variation");
     // @ts-ignore
-    eventBusGetVariations();
+    myVoodoO.eventBusGetVariations();
   }
 
 
