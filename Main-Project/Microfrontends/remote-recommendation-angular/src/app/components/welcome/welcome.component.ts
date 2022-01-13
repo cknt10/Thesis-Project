@@ -20,14 +20,14 @@ export class WelcomeComponent implements OnInit {
 
   ngOnInit(): void {
     // @ts-ignore
-    console.log("the lib",JSLib);
+    JSLib.push(["init"]);
     // @ts-ignore
-    JSLib.initApp("recommendation", (event) => {
+    JSLib.push(["initApp","recommendation",(event) => {
       console.log("makes callback",event);
       if(event.detail.data.recommendation.includes("v1")){
         this.v1 = true;
       }
-    });
+    }]);
     // @ts-ignore
     JSLib.getVariations();
   }
@@ -43,7 +43,6 @@ export class WelcomeComponent implements OnInit {
     }
   }
   */
-
 
   getVariation(){
 

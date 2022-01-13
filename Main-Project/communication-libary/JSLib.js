@@ -11,7 +11,8 @@ window.JSLib = (function (window, document, taskRunner){
 
     document.addEventListener('voodoo-get-variations', (event) => {
 
-        console.log("Libary got Event", event);
+        console.log("Libary got Event", event, apps);
+        console.log("Libary got Apps", apps);
         apps.map((app) => {
             try {
                 
@@ -62,6 +63,7 @@ window.JSLib = (function (window, document, taskRunner){
     };
     
 	const run = (param) => {
+        console.log("run", typeof JSLibInstance[param[0]] === "function", param);
 		
 		if(typeof JSLibInstance[param[0]] === "function"){
     		
@@ -108,6 +110,29 @@ window.JSLib = (function (window, document, taskRunner){
 		self.reset = function(param) {
             console.log(">>> [JSLib] reset function");
 		};
+
+        self.initApp = (params) => {
+            console.log("params1",params);
+            params.shift();
+            console.log("params2",params);
+            const [ appId, callback ] = params;
+            console.log("index of",apps.indexOf(appId) !== -1,apps.indexOf(appId));
+            console.log("apps before, reference",appId,callback);
+            if(apps.indexOf(appId) === -1){
+
+                apps.push({
+                    appId: appId,
+                    callback: callback
+                });
+            }
+            console.log("apps after",apps);
+        },
+    
+        self.removeApp = (params) => {
+            if (apps.indexOf(appId) !== -1) {
+                splice(index, 1);
+              }
+        }
         
 	};
     
@@ -130,28 +155,12 @@ window.JSLib = (function (window, document, taskRunner){
                 taskRunner.push(param);
             }
         },
-        initApp: (appId, callback) => {
-            console.log("index of",apps.indexOf(appId) !== -1,apps.indexOf(appId));
-            console.log("apps before, reference",appId,callback);
-            if(apps.indexOf(appId) === -1){
-
-                apps.push({
-                    appId: appId,
-                    callback: callback
-                });
-            }
-            console.log("apps after",apps);
-        },
-    
-        removeApp: (appId) => {
-            if (apps.indexOf(appId) !== -1) {
-                splice(index, 1);
-              }
-        },
         getVariations: () =>{ eventBusGetVariations() }
         
     }
 })(window, document, window.iridion || []);
+
+//this.InitApp(p)){appId, callck}
 
 /*window.JSLib = window.JSLib || [];
 window.JSLib = (function (window, document, taskRunner){
