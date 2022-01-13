@@ -1,3 +1,4 @@
+import { JsonpClientBackend } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
@@ -18,10 +19,22 @@ export class WelcomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    // @ts-ignore
+    console.log("the lib",JSLib);
+    // @ts-ignore
+    JSLib.initApp("recommendation", (event) => {
+      console.log("makes callback",event);
+      if(event.detail.data.recommendation.includes("v1")){
+        this.v1 = true;
+      }
+    });
+    // @ts-ignore
+    JSLib.getVariations();
   }
 
   v1 = false;
 
+  /*
   @HostListener('document:voodoo-get-variations', ['$event'])
   change(event: any) {
     console.log("gotEvent",event);
@@ -29,12 +42,14 @@ export class WelcomeComponent implements OnInit {
       this.v1 = true;
     }
   }
+  */
+
 
   getVariation(){
 
     console.log("get Variation");
     // @ts-ignore
-    myVoodoO.eventBusGetVariations();
+    //myVoodoO.eventBusGetVariations();
   }
 
 
