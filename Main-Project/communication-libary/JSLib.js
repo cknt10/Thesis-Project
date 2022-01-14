@@ -24,43 +24,7 @@ window.JSLib = (function (window, document, taskRunner){
         });
     });
 
-    const eventBusGetVariations = () => {
-        
-        if(!pending){
-            console.log("try fetching a test");
-            pending=!pending;
 
-            return new Promise(async (resolve, reject) => {
-    
-                try {
-            
-                    fetch('http://localhost:7999/getVariations')
-                    .then((response) => response.json()
-                        .then(response =>{
-                            
-                        console.log("Libary", response);
-                            //let data = response.json();
-                            
-                            var event = new CustomEvent("voodoo-get-variations", { "detail": response });
-                            document.dispatchEvent(event);
-                            resolve;
-                        })
-                    );
-                } catch (error) {
-                    reject(error);
-                }
-                finally{
-    
-                    pending=!pending;
-                }
-    
-            });
-        
-            } else {
-        
-                // mache nichts
-            }
-    };
     
 	const run = (param) => {
         console.log("run", typeof JSLibInstance[param[0]] === "function", param);
@@ -112,9 +76,7 @@ window.JSLib = (function (window, document, taskRunner){
 		};
 
         self.initApp = (params) => {
-            console.log("params1",params);
             params.shift();
-            console.log("params2",params);
             const [ appId, callback ] = params;
             console.log("index of",apps.indexOf(appId) !== -1,apps.indexOf(appId));
             console.log("apps before, reference",appId,callback);
@@ -133,6 +95,43 @@ window.JSLib = (function (window, document, taskRunner){
                 splice(index, 1);
               }
         }
+
+        self.eventBusGetVariations = (params) => {
+        
+            if(!pending){
+                console.log("try fetching a test");
+                pending=!pending;
+    
+                return new Promise(async (resolve, reject) => {
+        
+                    try {
+                
+                        fetch('http://localhost:7999/getVariations')
+                        .then((response) => response.json()
+                            .then(response =>{
+                                
+                                console.log("Libary", response);
+                                
+                                var event = new CustomEvent("voodoo-get-variations", { "detail": response });
+                                document.dispatchEvent(event);
+                                resolve;
+                            })
+                        );
+                    } catch (error) {
+                        reject(error);
+                    }
+                    finally{
+        
+                        pending=!pending;
+                    }
+        
+                });
+            
+                } else {
+            
+                    // mache nichts
+                }
+        };
         
 	};
     
@@ -154,8 +153,7 @@ window.JSLib = (function (window, document, taskRunner){
                 
                 taskRunner.push(param);
             }
-        },
-        getVariations: () =>{ eventBusGetVariations() }
+        }
         
     }
 })(window, document, window.iridion || []);

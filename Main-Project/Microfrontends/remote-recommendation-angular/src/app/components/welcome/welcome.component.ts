@@ -28,7 +28,7 @@ export class WelcomeComponent implements OnInit {
       }
     }]);
     // @ts-ignore
-    JSLib.getVariations();
+    JSLib.push(["eventBusGetVariations"]);
   }
 
   v1 = false;
