@@ -42,6 +42,25 @@ const Search = () => {
             <Col xs={12}>
                 <div className="autocomplete">
                     <Autocomplete
+                    
+                        
+                        onKeyDown={(event) => {
+                            if (event.key === 'Enter') {
+                                // Prevent's default 'Enter' behavior.
+                                event.isDefaultPrevented = true;
+                                // your handler code
+
+                                console.log("event", event);
+                                console.log("options",options);
+                                for(let i=0; i<= options.length; i++){
+                                    if(options[i].title === event.target.defaultValue){
+                                        window.location.href = `http://localhost:8080/pdp/${options[i].id}`
+                                    }
+                                }
+                            }
+                        }}
+                    
+                        
                         id="asynchronous-demo"
                         open={open}
                         onOpen={() => {
