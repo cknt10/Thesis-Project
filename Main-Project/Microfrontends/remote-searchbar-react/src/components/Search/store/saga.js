@@ -1,10 +1,30 @@
-import { put, takeLatest, fork } from 'redux-saga/effects';
+import { put, takeLatest, fork, call } from 'redux-saga/effects';
 // import { SearchConstants } from './constants';
 
 function* search() {
 
     try {
 
+        /*
+        let results = yield call(() => { 
+            return fetch('http://localhost:8087/searchresult')
+            //.then(response => response.json()) 
+        });
+        */
+        /*
+        fetch('http://localhost:8087/searchresult')
+        .then(response => response.json())
+        */
+            //console.log("correction", correction);
+            /*
+            return result.map(entry =>{
+                entry.product.title = entry.product.headline;
+                delete entry.product.headline;
+                return entry.product;
+            });
+           
+        */ 
+        /*
         const results = [
             { title: 'The Shawshank Redemption', year: 1994 },
             { title: 'The Godfather', year: 1972 },
@@ -107,12 +127,23 @@ function* search() {
             { title: '3 Idiots', year: 2009 },
             { title: 'Monty Python and the Holy Grail', year: 1975 },
         ];
-        
+        */
         // give me some time for the loading animation ;)
-        const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-        yield sleep(2500);
 
-        yield put({type: "@search/SEARCH_SUCCESS", results: results});
+        /*
+                .then(result => {
+            
+            console.log("my result", result,result[0].product);
+
+            const results = result.map(entry =>{
+                return entry.product;
+            });
+        */
+        
+
+        yield put({type: "@search/SEARCH_SUCCESS", results: [{ id:"2", title:"Schuhe" }]/*results.map(entry =>{
+            return entry.product;
+        })*/});
     } catch(error) {
         if(error instanceof Error) {
             yield put({type: "@search/SEARCH_ERROR", error: error.message});
@@ -121,7 +152,18 @@ function* search() {
 }
 
 function* searchRequest() {
-    yield takeLatest("@search/SEARCH", search);
+    yield takeLatest("@search/SEARCH", function*() {
+        const response = yield call(() => { 
+            return fetch('http://localhost:8087/searchresult')
+                .then(response => response.json()) 
+        });
+        let a= response.map(entry =>{
+            return entry.product;
+        });
+        
+        console.log("tobi", a);
+        yield put({type: "@search/SEARCH_SUCCESS", results: a});
+    });
 }
 
 export default [

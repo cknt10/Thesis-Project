@@ -21,7 +21,7 @@ const handleEvent = (type, data) => {
             type: "SearchProduct",
             product: {
               id: id,
-              headline: headline,
+              title: headline,
               privileges: privileges
             }
           };
