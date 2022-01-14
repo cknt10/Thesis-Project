@@ -156,7 +156,7 @@ window.JSLib = (function (window, document, taskRunner){
         }
         
     }
-})(window, document, window.iridion || []);
+})(window, document, window.JSLib || []);
 
 //this.InitApp(p)){appId, callck}
 
