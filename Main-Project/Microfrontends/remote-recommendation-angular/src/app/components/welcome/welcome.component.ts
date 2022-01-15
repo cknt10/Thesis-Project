@@ -20,15 +20,15 @@ export class WelcomeComponent implements OnInit {
 
   ngOnInit(): void {
     // @ts-ignore
-    JSLib.push(["init"]);
+    window.JSLib.push(["init"]);
     // @ts-ignore
-    JSLib.push(["initApp","recommendation",(event) => {
+    window.JSLib.push(["initApp","recommendation",(event) => {
       if(event.detail.data.recommendation.includes("v1")){
         this.v1 = true;
       }
     }]);
     // @ts-ignore
-    JSLib.push(["eventBusGetVariations"]);
+    window.JSLib.push(["eventBusGetVariations"]);
   }
 
   v1 = false;

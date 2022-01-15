@@ -11,6 +11,8 @@ import { Autocomplete } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import './style.css';
 
+import useExperiments from '../../services/experiments/useExperiments';
+
 // const Search: React.FC = () => {
 const Search = () => {
 
@@ -22,6 +24,8 @@ const Search = () => {
     // const [options, setOptions] = useState<readonly MoviePayload[]>([]);
     const [options, setOptions] = useState([]);
     const loading = open && options.length === 0;
+
+    const experiments = useExperiments();
 
     useEffect(() => {
 
@@ -36,6 +40,10 @@ const Search = () => {
 
         setOptions(results);
     }, [results]);
+
+    useEffect(() => {
+        console.log("experiments", experiments);
+    }, [experiments]);
 
     return (
         <Row>
