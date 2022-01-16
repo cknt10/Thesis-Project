@@ -50,6 +50,15 @@ window.JSLib = (function (window, document, taskRunner){
                 let key = taskRunner[i][0];
                 
                 console.log(">>> [JSLib] this task was defined before initialization", key);
+                console.log(">>> [JSLib] trying reprocess pending tasks...", key);
+
+                try{
+
+                    self[key](taskRunner[i]);
+                } catch(er) {
+                    console.error(key, ">>> [JSLib:FAILED] could not be reprocessed");
+                }
+
 			}
             
             // define you listener here
@@ -99,7 +108,7 @@ window.JSLib = (function (window, document, taskRunner){
         self.eventBusGetVariations = (params) => {
         
             if(!pending){
-                console.log("try fetching a test");
+                
                 pending=!pending;
     
                 return new Promise(async (resolve, reject) => {
@@ -142,6 +151,8 @@ window.JSLib = (function (window, document, taskRunner){
         push: function(param){
             
             var key = param[0];
+
+            console.log(">>> [JSLib] push", param);
             
             if(key === "init" || instanceInitialized){
                 
@@ -157,85 +168,3 @@ window.JSLib = (function (window, document, taskRunner){
         
     }
 })(window, document, window.JSLib || []);
-
-//this.InitApp(p)){appId, callck}
-
-/*window.JSLib = window.JSLib || [];
-window.JSLib = (function (window, document, taskRunner){
-	"use strict";
-    
-	const version = "0.1";
-    
-	let JSLibInstance;
-    let instanceInitialized = false;
-    
-	const run = (param) => {
-		
-		if(typeof JSLibInstance[param[0]] === "function"){
-    		
-			return JSLibInstance[param[0]](param);
-    	} else {
-    		
-    		// function is not defined
-    		console.log(">>> [JSLib] function is not defined");
-    	}
-	};
-    
-	const JSLib = function() {
-		
-		const self = this;
-        
-		self.init = function(param){
-            
-			for(var i = 0; i < taskRunner.length; i++){
-                
-                let key = taskRunner[i][0];
-                
-                console.log(">>> [JSLib] this task was defined before initialization", key);
-			}
-            
-            // define you listener here
-            console.log(">>> [JSLib] running initialization");
-            
-			// clear task array
-			taskRunner = [];
-            
-            instanceInitialized = true;
-		};
-        
-        // define more functions
-		self.add = function(param) {
-            const key = param[0];
-            const { name, callback } = param[1];
-            
-            console.log(">>> [JSLib] add function", key, name, typeof callback);
-		};
-        
-        // define more functions
-		self.reset = function(param) {
-            console.log(">>> [JSLib] reset function");
-		};
-        
-	};
-    
-	// initialize iridion 
-	JSLibInstance = new JSLib();
-    
-	return {
-        push: function(param){
-            
-            var key = param[0];
-            
-            if(key === "init" || instanceInitialized){
-                
-                run(param);
-                
-            // push into task array if iridion is not initialized
-            // all tasks will be executed in the init function
-            } else {
-                
-                taskRunner.push(param);
-            }
-        }
-    }
-})(window, document, window.iridion || []);*/

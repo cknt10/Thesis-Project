@@ -1,5 +1,6 @@
 import { JsonpClientBackend } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
+import { timeout } from 'rxjs';
 
 @Component({
   selector: 'app-welcome',
@@ -16,6 +17,8 @@ export class WelcomeComponent implements OnInit {
     { headline: "Synthwave-bundle", picture: `${this.prefixUrl}synthwave.jpg`, text: this.fillerText },
   ];
 
+  public v1 = false;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -27,11 +30,14 @@ export class WelcomeComponent implements OnInit {
         this.v1 = true;
       }
     }]);
-    // @ts-ignore
-    window.JSLib.push(["eventBusGetVariations"]);
+
+    setTimeout(()=>{
+      // @ts-ignore
+      window.JSLib.push(["eventBusGetVariations"]);
+
+    },5000)
   }
 
-  v1 = false;
 
   /*
   @HostListener('document:voodoo-get-variations', ['$event'])
@@ -47,7 +53,7 @@ export class WelcomeComponent implements OnInit {
 
     console.log("get Variation");
     // @ts-ignore
-    //myVoodoO.eventBusGetVariations();
+    window.JSLib.push(["eventBusGetVariations"]);
   }
 
 

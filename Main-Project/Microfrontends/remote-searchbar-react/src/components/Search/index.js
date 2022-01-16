@@ -27,6 +27,8 @@ const Search = () => {
 
     const experiments = useExperiments();
 
+    const [bubble, setBubble]  = useState("");
+
     useEffect(() => {
 
         if (!loading) {
@@ -43,61 +45,77 @@ const Search = () => {
 
     useEffect(() => {
         console.log("experiments", experiments);
+        if(experiments[0] && experiments[0].detail)console.log("ask", experiments[0].detail);
+        
+        if(experiments[0] && experiments[0].detail && experiments[0].detail.data && experiments[0].detail.data.search){
+            setBubble(
+            <div className="bubble">
+                <div><i className="arrow"></i></div>
+                <div className="suggestions">Wir haben neue Vorschläge für dich!</div>
+            </div>
+            );
+            console.log("new Variation on Search", experiments[0].detail.data.search, bubble);
+        }
+        
     }, [experiments]);
 
     return (
-        <Row>
-            <Col xs={12}>
-                <div className="autocomplete">
-                    <Autocomplete
-                    
-                        
-                        onKeyDown={(event) => {
-                            if (event.key === 'Enter') {
-                                // Prevent's default 'Enter' behavior.
-                                event.isDefaultPrevented = true;
-                                // your handler code
+        <div>
 
-                                for(let i=0; i<= options.length; i++){
-                                    if(options[i].title === event.target.defaultValue){
-                                        window.location.href = `http://localhost:8080/pdp/${options[i].id}`
+            <Row>
+                <Col xs={12}>
+                    <div className="autocomplete">
+                        <Autocomplete
+                        
+                            
+                            onKeyDown={(event) => {
+                                if (event.key === 'Enter') {
+                                    // Prevent's default 'Enter' behavior.
+                                    event.isDefaultPrevented = true;
+                                    // your handler code
+
+                                    for(let i=0; i<= options.length; i++){
+                                        if(options[i].title === event.target.defaultValue){
+                                            window.location.href = `http://localhost:8080/pdp/${options[i].id}`
+                                        }
                                     }
                                 }
-                            }
-                        }}
-                        
-                        id="asynchronous-demo"
-                        open={open}
-                        onOpen={() => {
-                            setOpen(true);
-                        }}
-                        onClose={() => {
-                            setOpen(false);
-                        }}
-                        isOptionEqualToValue={(option, value) => option.title === value.title}
-                        getOptionLabel={(option) => option.title}
-                        options={options}
-                        loading={loading}
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                label="Asynchronous"
-                                InputProps={{
-                                    ...params.InputProps,
-                                    endAdornment: (
-                                        <React.Fragment>
-                                            {loading ? <CircularProgress color="inherit" size={20} /> : null}
-                                            {params.InputProps.endAdornment}
-                                        </React.Fragment>
-                                    )
-                                }}
-                            />
-                        )}
-                    />
-                </div>
-                <Alert type="error" message={error} />
-            </Col>
-        </Row>
+                            }}
+                            
+                            id="asynchronous-demo"
+                            open={open}
+                            onOpen={() => {
+                                setOpen(true);
+                            }}
+                            onClose={() => {
+                                setOpen(false);
+                            }}
+                            isOptionEqualToValue={(option, value) => option.title === value.title}
+                            getOptionLabel={(option) => option.title}
+                            options={options}
+                            loading={loading}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Asynchronous"
+                                    InputProps={{
+                                        ...params.InputProps,
+                                        endAdornment: (
+                                            <React.Fragment>
+                                                {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                                                {params.InputProps.endAdornment}
+                                            </React.Fragment>
+                                        )
+                                    }}
+                                />
+                            )}
+                        />
+                    </div>
+                    <Alert type="error" message={error} />
+                </Col>
+            </Row>
+            {bubble}
+        </div>
     );
 };
 

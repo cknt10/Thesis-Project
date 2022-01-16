@@ -11,8 +11,8 @@ const useExperiments = () => {
 
         if(!init) {
 
-            //window.JSLib = window.JSLib || []; <- Max
-            window.JSLib.push(["init"]); //von Christian dazu
+            window.JSLib = window.JSLib || []; //<- Max
+            //window.JSLib.push(["init"]); //von Christian dazu
             window.JSLib.push(['initApp', 'react-serach', (experimentData) => {
                 dispatch(update(experimentData));
             }]);

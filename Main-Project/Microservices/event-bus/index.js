@@ -9,7 +9,8 @@ const port = 7999;
 const events = [];
 const loginState = ["logout"];
 const variation = {
-    recommendation: ["v1"]
+    recommendation: ["v1"],
+    search: ["v1"]
 };
 
 app.use(express.json());
