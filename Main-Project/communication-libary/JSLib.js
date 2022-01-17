@@ -12,7 +12,6 @@ window.JSLib = (function (window, document, taskRunner){
     document.addEventListener('voodoo-get-variations', (event) => {
 
         console.log("Libary got Event", event, apps);
-        console.log("Libary got Apps", apps);
         apps.map((app) => {
             try {
                 
@@ -23,8 +22,6 @@ window.JSLib = (function (window, document, taskRunner){
             }
         });
     });
-
-
     
 	const run = (param) => {
         console.log("run", typeof JSLibInstance[param[0]] === "function", param);
@@ -43,32 +40,46 @@ window.JSLib = (function (window, document, taskRunner){
 		
 		const self = this;
         
-		self.init = function(param){
+		self.init = function(params){
             
-			for(var i = 0; i < taskRunner.length; i++){
-                
-                let key = taskRunner[i][0];
-                
-                console.log(">>> [JSLib] this task was defined before initialization", key);
-                console.log(">>> [JSLib] trying reprocess pending tasks...", key);
+            if(Array.isArray(taskRunner) && taskRunner.length>0){
 
-                try{
-
-                    self[key](taskRunner[i]);
-                } catch(er) {
-                    console.error(key, ">>> [JSLib:FAILED] could not be reprocessed");
+                for(var i = 0; i < taskRunner.length; i++){
+                    
+                    let key = taskRunner[i][0];
+                    
+                    console.log(">>> [JSLib] this task was defined before initialization", key);
+                    console.log(">>> [JSLib] trying reprocess pending tasks...", key);
+    
+                    try{
+    
+                        self[key](taskRunner[i]);
+                    } catch(er) {
+                        console.error(key, ">>> [JSLib:FAILED] could not be reprocessed, check function call in your components");
+                    }
                 }
+                // clear task array
+                taskRunner = [];
+            }
 
-			}
-            
             // define you listener here
             console.log(">>> [JSLib] running initialization");
+            params.shift();
+            const [ appId, callback ] = params;
+            console.log("index of",apps.indexOf(appId) !== -1,apps.indexOf(appId));
+            console.log("apps before, reference",appId,callback);
+            if(apps.indexOf(appId) === -1){
 
-            
-			// clear task array
-			taskRunner = [];
-            
-            instanceInitialized = true;
+                apps.push({
+                    appId: appId,
+                    callback: callback
+                });
+            }
+
+            if(!instanceInitialized){
+
+                instanceInitialized = true;
+            }
 		};
         
         // define more functions
@@ -83,21 +94,6 @@ window.JSLib = (function (window, document, taskRunner){
 		self.reset = function(param) {
             console.log(">>> [JSLib] reset function");
 		};
-
-        self.initApp = (params) => {
-            params.shift();
-            const [ appId, callback ] = params;
-            console.log("index of",apps.indexOf(appId) !== -1,apps.indexOf(appId));
-            console.log("apps before, reference",appId,callback);
-            if(apps.indexOf(appId) === -1){
-
-                apps.push({
-                    appId: appId,
-                    callback: callback
-                });
-            }
-            console.log("apps after",apps);
-        },
     
         self.removeApp = (params) => {
             if (apps.indexOf(appId) !== -1) {
@@ -158,7 +154,7 @@ window.JSLib = (function (window, document, taskRunner){
                 
                 run(param);
                 
-            // push into task array if iridion is not initialized
+            // push into task array if JSLib is not initialized
             // all tasks will be executed in the init function
             } else {
                 

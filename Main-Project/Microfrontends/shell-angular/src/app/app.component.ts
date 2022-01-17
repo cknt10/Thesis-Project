@@ -24,8 +24,7 @@ export class AppComponent {
 
   ngOnInit() {
     // @ts-ignore
-    mount(document.querySelector('#searchbar_container'))
-    //buildSearchbar();
+    mount(document.querySelector('#searchbar_container'));
     this.tryLogin();
   }
 
@@ -35,7 +34,6 @@ export class AppComponent {
     let lastState = await this.loginService.defineUser();
     if(lastState === "logout"){
       success = await this.loginService.defineUser("logout") as boolean;
-      //if(success)this.currentChild.ngOnInit();
     }
     else if(lastState === "login"){
       this.isLoggedIn = true;
@@ -69,12 +67,10 @@ export class AppComponent {
       this.currentChild.ngOnInit();
       this.isLoggedIn = !this.isLoggedIn;
     }
-    //this.currentChild.ngOnInit();
   }
 
   referenceToChild(componentReference: any){
     this.currentChild = componentReference;
     console.log("newReference", componentReference, typeof componentReference);
-    //componentReference.ngOnInit()
   }
 }

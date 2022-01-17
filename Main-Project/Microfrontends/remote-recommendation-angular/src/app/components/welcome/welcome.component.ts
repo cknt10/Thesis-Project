@@ -19,13 +19,14 @@ export class WelcomeComponent implements OnInit {
 
   public v1 = false;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
     // @ts-ignore
-    window.JSLib.push(["init"]);
+    //window.JSLib.push(["init"]);
     // @ts-ignore
-    window.JSLib.push(["initApp","recommendation",(event) => {
+    window.JSLib.push(["init","recommendation",(event) => {
       if(event.detail.data.recommendation.includes("v1")){
         this.v1 = true;
       }

@@ -11,19 +11,11 @@ const useExperiments = () => {
 
         if(!init) {
 
-            window.JSLib = window.JSLib || []; //<- Max
-            //window.JSLib.push(["init"]); //von Christian dazu
-            window.JSLib.push(['initApp', 'react-serach', (experimentData) => {
+            window.JSLib.push(['init', 'react-serach', (experimentData) => {
                 dispatch(update(experimentData));
             }]);
     
             dispatch(registered());
-
-            // test 
-            // dispatch(update({
-            //     experiment: "123",
-            //     variation: "321"
-            // }));
         }
     }, [init]);
 
