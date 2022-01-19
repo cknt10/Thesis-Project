@@ -17,36 +17,10 @@ export class WelcomeComponent implements OnInit {
     { headline: "Synthwave-bundle", picture: `${this.prefixUrl}synthwave.jpg`, text: this.fillerText },
   ];
 
-  public v1 = false;
-
   constructor() {
   }
 
   ngOnInit(): void {
-    // @ts-ignore
-    window.JSLib.push(["add","recommendation",(event) => {
-      console.log("wc",event);
-      event.forEach((value: any) => {
-        if(value.experimentId === 628682){
-          this.v1 = true;
-        }
-      });
-    }]);
-
-    /*
-    setTimeout(()=>{
-      // @ts-ignore
-      window.JSLib.push(["update","timeout"]);
-
-    },5000)
-    */
-  }
-
-  getVariation(){
-
-    console.log("get Variation");
-    // @ts-ignore
-    window.JSLib.push(["eventBusGetVariations"]);
   }
 
 

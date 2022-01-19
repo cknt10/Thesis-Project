@@ -8,6 +8,7 @@ window.JSLib = (function (window, document, taskRunner){
     let instanceInitialized = false;
     let pending = false;
     const apps = [];
+    const experiments = [];
 
     document.addEventListener('voodoo-get-variations', (event) => {
 
@@ -15,6 +16,7 @@ window.JSLib = (function (window, document, taskRunner){
         apps.map((app) => {
             try {
                 if(event.detail && event.detail.variants){
+                    event.detail.variants.appId = app.appId;
                     app.callback(event.detail.variants);           
                 }
                 //app.callback(event);
@@ -76,7 +78,7 @@ window.JSLib = (function (window, document, taskRunner){
                 // define more functions
         self.add = function(params) {
             params.shift();
-            const [ appId, callback ] = params;
+            const [ appId, experimentName, callback ] = params;
             console.log("apps before, reference",appId,callback);
             if(apps.indexOf(appId) === -1){
 
@@ -84,6 +86,8 @@ window.JSLib = (function (window, document, taskRunner){
                     appId: appId,
                     callback: callback
                 });
+
+                experiments.push(experimentName);
             }
             
             console.log(">>> [JSLib] add function", appId, typeof callback);
@@ -106,18 +110,23 @@ window.JSLib = (function (window, document, taskRunner){
                 return new Promise(async (resolve, reject) => {
         
                     try {
-
-                        let paramsAsString = "";
+                        
                         if(params && params.length > 1){
 
-                            paramsAsString = "?params="+ params[1];
-                            console.log("myparams", );
+                            experiments.push(params[1]);
+                            console.log("param unso", JSON.stringify(experiments));
                         }
 
-                        console.log("myparams", paramsAsString);
+                        const config = {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': "text/plain"
+                            },
+                            body: JSON.stringify(experiments)
+                        }
 
                         fetch(
-                            "http://localhost:7999/getVariations" + paramsAsString
+                            "http://localhost:7999/variations", config
                         )
                         .then((response) => response.json()
                             .then(response =>{

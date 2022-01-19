@@ -39,10 +39,9 @@ app.get('/events', (req, res) => {
     res.send(events);
 });
 
-app.get('/getVariations', async(req, res) => {
+app.post('/variations', async(req, res) => {
 
-    //console.log("names from fe",JSON.parse(req.query.testNames));
-    console.log("names from Frontend",req.query.params);
+    if(req.query.params)console.log("names from Frontend",req.query.params);
 
     let testNames = ["CK: A/B Test Bubble"];
 

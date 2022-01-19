@@ -44,28 +44,29 @@ const Search = () => {
     }, [results]);
 
     useEffect(() => {
-        if(experiments[0] && experiments[0].detail)console.log("ask", experiments[0].detail);
-        
-        if(experiments[0] && experiments[0].detail && experiments[0].detail.data && experiments[0].detail.data.search){//JS darauf vorbereiten array.map ist experiment mit id vorhanden  ... passende experimenten id, dann variante
-            setBubble(
-            <div className="bubble">
-                <div><i className="arrow"></i></div>
-                <div className="suggestions">Wir haben neue Vorschläge für dich!</div>
-            </div>
-            );
+        console.log("sb", experiments);
+        if(experiments.length > 0){
+
+            experiments[0].forEach(element => {
+                console.log(element);
+                if(element.experimentName === "CK: A/B Test Bubble"){
+                    setBubble(
+                        <div className="bubble">
+                            <div><i className="arrow"></i></div>
+                            <div className="suggestions">Wir haben neue Vorschläge für dich!</div>
+                        </div>
+                        );
+                }
+            });
         }
-        
     }, [experiments]);
 
     return (
         <div>
-
             <Row>
                 <Col xs={12}>
                     <div className="autocomplete">
                         <Autocomplete
-                        
-                            
                             onKeyDown={(event) => {
                                 if (event.key === 'Enter') {
                                     // Prevent's default 'Enter' behavior.

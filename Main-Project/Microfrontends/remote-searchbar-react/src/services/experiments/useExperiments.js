@@ -13,7 +13,7 @@ const useExperiments = () => {
 
             try{
 
-                window.JSLib.push(['add', 'react-search', (experimentData) => {
+                window.JSLib.push(['add', 'react-search', 'CK: A/B Test Bubble', (experimentData) => {
                     dispatch(update(experimentData));
                 }]);
         
