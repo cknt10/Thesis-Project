@@ -7,7 +7,6 @@ import { DeviceDeciderService } from 'src/app/services/helpers/device-decider.se
 import SwiperCore, { EffectCoverflow, Navigation, Pagination, Scrollbar, A11y, SwiperOptions } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
 
-
 // install Swiper modules
 SwiperCore.use([EffectCoverflow, Navigation, Pagination, Scrollbar, A11y]);
 
@@ -18,7 +17,6 @@ SwiperCore.use([EffectCoverflow, Navigation, Pagination, Scrollbar, A11y]);
   encapsulation: ViewEncapsulation.None,
 })
 export class CarouselComponent implements OnInit {
-
 
   viewport: Subscription;
 
@@ -68,11 +66,11 @@ export class CarouselComponent implements OnInit {
   }
 
   onSwiper(event: Event){
-    console.log("Swipe", event);
+    //console.log("Swipe", event);
   }
 
   onSlideChange(){
-    console.log("onSlideChange");
+    //console.log("onSlideChange");
   }
 
   calculateSlider(device: DeviceProperty): SwiperOptions{
@@ -84,18 +82,6 @@ export class CarouselComponent implements OnInit {
         nextEl: '.next-slide',
         prevEl: '.previous-slide',
       },
-      //
-      /*
-      effect: 'coverflow',
-      coverflowEffect: {
-        rotate: 50,
-        stretch: 0,
-        depth: 100,
-        modifier: 1,
-        slideShadows: true
-      },
-      */
-      //
       pagination: { clickable: true },
       scrollbar: { draggable: true },
     }

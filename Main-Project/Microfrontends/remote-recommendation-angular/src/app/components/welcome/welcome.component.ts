@@ -24,31 +24,23 @@ export class WelcomeComponent implements OnInit {
 
   ngOnInit(): void {
     // @ts-ignore
-    //window.JSLib.push(["init"]);
-    // @ts-ignore
-    window.JSLib.push(["init","recommendation",(event) => {
-      if(event.detail.data.recommendation.includes("v1")){
-        this.v1 = true;
-      }
+    window.JSLib.push(["add","recommendation",(event) => {
+      console.log("wc",event);
+      event.forEach((value: any) => {
+        if(value.experimentId === 628682){
+          this.v1 = true;
+        }
+      });
     }]);
 
+    /*
     setTimeout(()=>{
       // @ts-ignore
-      window.JSLib.push(["eventBusGetVariations"]);
+      window.JSLib.push(["update","timeout"]);
 
     },5000)
+    */
   }
-
-
-  /*
-  @HostListener('document:voodoo-get-variations', ['$event'])
-  change(event: any) {
-    console.log("gotEvent",event);
-    if(event.detail.data.recommendation.includes("v1")){
-      this.v1 = true;
-    }
-  }
-  */
 
   getVariation(){
 

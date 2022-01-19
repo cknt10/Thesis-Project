@@ -14,9 +14,10 @@ window.JSLib = (function (window, document, taskRunner){
         console.log("Libary got Event", event, apps);
         apps.map((app) => {
             try {
-                
-                console.log("callback of",app.appId);
-                app.callback(event);
+                if(event.detail && event.detail.variants){
+                    app.callback(event.detail.variants);           
+                }
+                //app.callback(event);
             } catch (error) {
                 console.log("callback by custom event not possible",error);
             }
@@ -40,7 +41,9 @@ window.JSLib = (function (window, document, taskRunner){
 		
 		const self = this;
         
-		self.init = function(params){
+		self.init = function(){
+            
+            console.log(">>> [JSLib] running initialization");
             
             if(Array.isArray(taskRunner) && taskRunner.length>0){
 
@@ -61,12 +64,19 @@ window.JSLib = (function (window, document, taskRunner){
                 // clear task array
                 taskRunner = [];
             }
+            
+            if(!instanceInitialized){
+                
+                instanceInitialized = true;
+                this.update();
+            }
 
-            // define you listener here
-            console.log(">>> [JSLib] running initialization");
+		};
+
+                // define more functions
+        self.add = function(params) {
             params.shift();
             const [ appId, callback ] = params;
-            console.log("index of",apps.indexOf(appId) !== -1,apps.indexOf(appId));
             console.log("apps before, reference",appId,callback);
             if(apps.indexOf(appId) === -1){
 
@@ -75,33 +85,19 @@ window.JSLib = (function (window, document, taskRunner){
                     callback: callback
                 });
             }
-
-            if(!instanceInitialized){
-
-                instanceInitialized = true;
-            }
-		};
-        
-        // define more functions
-		self.add = function(param) {
-            const key = param[0];
-            const { name, callback } = param[1];
             
-            console.log(">>> [JSLib] add function", key, name, typeof callback);
-		};
-        
-        // define more functions
-		self.reset = function(param) {
-            console.log(">>> [JSLib] reset function");
-		};
+            console.log(">>> [JSLib] add function", appId, typeof callback);
+        };
     
         self.removeApp = (params) => {
+            params.shift();
+            const [ appId ] = params;
             if (apps.indexOf(appId) !== -1) {
-                splice(index, 1);
+                splice(apps.indexOf(appId), 1);
               }
         }
 
-        self.eventBusGetVariations = (params) => {
+        self.update = (params) => {
         
             if(!pending){
                 
@@ -110,19 +106,32 @@ window.JSLib = (function (window, document, taskRunner){
                 return new Promise(async (resolve, reject) => {
         
                     try {
-                
-                        fetch('http://localhost:7999/getVariations')
+
+                        let paramsAsString = "";
+                        if(params && params.length > 1){
+
+                            paramsAsString = "?params="+ params[1];
+                            console.log("myparams", );
+                        }
+
+                        console.log("myparams", paramsAsString);
+
+                        fetch(
+                            "http://localhost:7999/getVariations" + paramsAsString
+                        )
                         .then((response) => response.json()
                             .then(response =>{
                                 
                                 console.log("Libary", response);
                                 
                                 var event = new CustomEvent("voodoo-get-variations", { "detail": response });
+
                                 document.dispatchEvent(event);
                                 resolve;
                             })
                         );
                     } catch (error) {
+                        console.log("failed Fetch", error)
                         reject(error);
                     }
                     finally{

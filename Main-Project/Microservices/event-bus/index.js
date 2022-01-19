@@ -8,10 +8,6 @@ const port = 7999;
 
 const events = [];
 const loginState = ["logout"];
-const variation = {
-    recommendation: ["v1"],
-    search: ["v1"]
-};
 
 app.use(express.json());
 app.use(cors());//Wäre bei einem Login Service nicht nötig
@@ -43,9 +39,77 @@ app.get('/events', (req, res) => {
     res.send(events);
 });
 
-app.get('/getVariations', (req, res) => {
-    console.log("events", events);
-    res.send({data: variation});
+app.get('/getVariations', async(req, res) => {
+
+    //console.log("names from fe",JSON.parse(req.query.testNames));
+    console.log("names from Frontend",req.query.params);
+
+    let testNames = ["CK: A/B Test Bubble"];
+
+    if(req.query.params){
+        testNames.push(req.query.params);
+    }
+
+    var data = JSON.stringify({
+        "selector": {
+          "names": testNames
+        },
+        "user": {
+          "dyid": "customUserId123"
+        },
+        "session": {
+          "dy": "myCustomSession345"
+        },
+        "context": {
+          "page": {
+            "type": "HOMEPAGE",
+            "location": "https://example.org",
+            "locale": "en_US",
+            "data": []
+          },
+          "device": {
+            "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36",
+            "ip": "54.100.200.255"
+          }
+        },
+        "options": {
+          "isImplicitPageview": false,
+          " returnAnalyticsMetadata": false
+        }
+      });
+      
+      var config = {
+        method: 'post',
+        url: 'https://dy-api.com/v2/serve/user/choose',
+        headers: { 
+          'dy-api-key': '249626a040af3d20cd87dadd2ef128554667170f06f779958f615a7a1cf132f1', 
+          'Content-Type': 'application/json'
+        },
+        data : data
+      };
+
+      try{
+
+          const result = await axios(config);
+      
+          //console.log("result", /*(result.data), */result.data.choices[0].variations[0].payload.data.variation);
+          
+          let parsedDY = result.data.choices.map(entry =>{
+              let variationValue = entry.variations[0].payload.data;
+              variationValue = (variationValue && variationValue.variation)?variationValue.variation:"c";
+              return {
+                  "experimentId": entry.id,
+                  "experimentName": entry.name,
+                  "variantId": entry.variations[0].id,
+                  "variant": variationValue
+              }
+             });
+             
+      
+          res.send({ "variants": parsedDY});
+      }catch(e){
+        res.status(404).send( "failed handling DY-request: " + e);
+      }
 });
 
 app.post('/defineUser',async (req, res)=>{

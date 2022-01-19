@@ -44,7 +44,11 @@ export class CardComponent implements OnInit {
     console.log(this.router.url, this.item.id, "my log");
     //this.router.navigate(['./pdp']);
     //this.router.navigate(['/pdp', `${this.item.id}`]);
-    this.router.navigate(['/pdp', `${this.item.id}`]);
+    this.router.navigate(['/pdp', `${this.item.id}`]).then(()=>{
+
+    // @ts-ignore
+    window.JSLib.push(["update","CK: A/B Test Relocation colorize-bundles"]);
+    });
   }
 
 }

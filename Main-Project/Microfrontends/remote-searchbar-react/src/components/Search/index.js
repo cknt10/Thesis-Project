@@ -27,7 +27,7 @@ const Search = () => {
 
     const experiments = useExperiments();
 
-    const [bubble, setBubble]  = useState("");
+    const [bubble, setBubble]  = useState(<></>);
 
     useEffect(() => {
 
@@ -44,17 +44,15 @@ const Search = () => {
     }, [results]);
 
     useEffect(() => {
-        console.log("experiments", experiments);
         if(experiments[0] && experiments[0].detail)console.log("ask", experiments[0].detail);
         
-        if(experiments[0] && experiments[0].detail && experiments[0].detail.data && experiments[0].detail.data.search){
+        if(experiments[0] && experiments[0].detail && experiments[0].detail.data && experiments[0].detail.data.search){//JS darauf vorbereiten array.map ist experiment mit id vorhanden  ... passende experimenten id, dann variante
             setBubble(
             <div className="bubble">
                 <div><i className="arrow"></i></div>
                 <div className="suggestions">Wir haben neue Vorschläge für dich!</div>
             </div>
             );
-            console.log("new Variation on Search", experiments[0].detail.data.search, bubble);
         }
         
     }, [experiments]);
@@ -75,7 +73,7 @@ const Search = () => {
                                     // your handler code
 
                                     for(let i=0; i<= options.length; i++){
-                                        if(options[i].title === event.target.defaultValue){
+                                        if(options[i].title === event.target.defaultValue){//location.protocol
                                             window.location.href = `http://localhost:8080/pdp/${options[i].id}`
                                         }
                                     }

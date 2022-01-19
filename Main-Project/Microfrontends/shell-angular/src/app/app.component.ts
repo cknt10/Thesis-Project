@@ -23,9 +23,12 @@ export class AppComponent {
     ) {}
 
   ngOnInit() {
+
     // @ts-ignore
     mount(document.querySelector('#searchbar_container'));
     this.tryLogin();
+    // @ts-ignore
+    window.JSLib.push(["init"]);
   }
 
   async tryLogin(){

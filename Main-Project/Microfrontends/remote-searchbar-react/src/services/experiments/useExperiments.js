@@ -11,11 +11,16 @@ const useExperiments = () => {
 
         if(!init) {
 
-            window.JSLib.push(['init', 'react-serach', (experimentData) => {
-                dispatch(update(experimentData));
-            }]);
-    
-            dispatch(registered());
+            try{
+
+                window.JSLib.push(['add', 'react-search', (experimentData) => {
+                    dispatch(update(experimentData));
+                }]);
+        
+                dispatch(registered());
+            } catch (e){
+                console.error("searchbar was not able to react on variation", e);
+            }
         }
     }, [init]);
 
