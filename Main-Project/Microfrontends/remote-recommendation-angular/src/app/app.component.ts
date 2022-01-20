@@ -9,8 +9,6 @@ export class AppComponent {
   title = 'landingpage';
 
   ngOnitInit(){
-    // @ts-ignore
-    window.JSLib.push(["add","recommendation","CK: A/B Test Relocation colorize-bundles"]);
 
   }
 }

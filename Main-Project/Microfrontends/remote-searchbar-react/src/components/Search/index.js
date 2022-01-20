@@ -44,21 +44,17 @@ const Search = () => {
     }, [results]);
 
     useEffect(() => {
-        console.log("sb", experiments);
-        if(experiments.length > 0){
-
-            experiments[0].forEach(element => {
-                console.log(element);
-                if(element.experimentName === "CK: A/B Test Bubble"){
+        //console.log("sb", experiments, experiments[0]);
+            experiments.forEach(app => {
+                if(app[0].experimentName === "CK: A/B Test Bubble"/*app.appId.includes("react-search")*/){
                     setBubble(
                         <div className="bubble">
                             <div><i className="arrow"></i></div>
                             <div className="suggestions">Wir haben neue Vorschläge für dich!</div>
                         </div>
-                        );
+                    );
                 }
             });
-        }
     }, [experiments]);
 
     return (

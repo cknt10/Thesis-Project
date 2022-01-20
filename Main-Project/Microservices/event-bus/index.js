@@ -41,17 +41,20 @@ app.get('/events', (req, res) => {
 
 app.post('/variations', async(req, res) => {
 
-    if(req.query.params)console.log("names from Frontend",req.query.params);
+    //if(req.query.params)console.log("names from Frontend",req.query.params);
 
-    let testNames = ["CK: A/B Test Bubble"];
+    console.log("req", req.body);
+    //let testNames = ["CK: A/B Test Bubble"];
 
+    /*
     if(req.query.params){
         testNames.push(req.query.params);
     }
+    */
 
     var data = JSON.stringify({
         "selector": {
-          "names": testNames
+          "names": req.body
         },
         "user": {
           "dyid": "customUserId123"
@@ -103,6 +106,7 @@ app.post('/variations', async(req, res) => {
                   "variant": variationValue
               }
              });
+             console.log("parsed", parsedDY);
              
       
           res.send({ "variants": parsedDY});

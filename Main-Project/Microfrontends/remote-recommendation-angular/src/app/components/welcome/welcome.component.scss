@@ -89,3 +89,31 @@ h1, h2, h3{
     font-size: 1.2rem;
   }
 }
+
+.v1{
+
+  .bundle_wrapper{
+
+    .img_wrapper{
+      border-radius: 0;
+      width: 210px;
+    }
+
+    padding: 2rem 0.6rem;
+    border: 0.1rem solid black;
+    &.b_sw{
+
+      background-color: $power;
+      //text-shadow: 3px 2px 4px $power;
+    }
+    &.b_cp{
+      background-color: rgb(206, 173, 7);
+      //text-shadow: 3px 2px 4px rgb(206, 173, 7);
+    }
+    &.b_uw{
+      background-color: $button;
+      color: white;
+      //text-shadow: 3px 2px 4px $button;
+    }
+  }
+}

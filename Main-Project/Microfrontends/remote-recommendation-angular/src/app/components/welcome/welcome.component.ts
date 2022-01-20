@@ -1,6 +1,7 @@
 import { JsonpClientBackend } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { timeout } from 'rxjs';
+import { VariantcacherService } from 'src/app/services/variantcacher.service';
 
 @Component({
   selector: 'app-welcome',
@@ -12,16 +13,28 @@ export class WelcomeComponent implements OnInit {
   public prefixUrl = 'https://kk-ck-microfrontend.s3.eu-central-1.amazonaws.com/content_bundles/';
   public fillerText = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
   public list = [
-    { headline: "Criminal Underworld-bundle", picture: `${this.prefixUrl}criminal_underworld.jpg`, text: this.fillerText },
-    { headline: "Cyberpunk-bundle", picture: `${this.prefixUrl}cyberpunk.jpg`, text: this.fillerText },
-    { headline: "Synthwave-bundle", picture: `${this.prefixUrl}synthwave.jpg`, text: this.fillerText },
+    { headline: "Criminal Underworld-bundle", picture: `${this.prefixUrl}criminal_underworld.jpg`, text: this.fillerText , class: "b_uw"},
+    { headline: "Cyberpunk-bundle", picture: `${this.prefixUrl}cyberpunk.jpg`, text: this.fillerText , class: "b_cp" },
+    { headline: "Synthwave-bundle", picture: `${this.prefixUrl}synthwave.jpg`, text: this.fillerText , class: "b_sw" },
   ];
 
-  constructor() {
+  constructor(public cache: VariantcacherService) {
+    console.log("v1",this.cache.v1);
   }
 
   ngOnInit(): void {
+    // @ts-ignore
+    window.JSLib.push(["add","recommendation","CK: A/B Test Relocation colorize-bundles",(event) =>{
+      for(let key in event){
+        console.log("event[key].experimentName",event[key].experimentName);
+        if(event[key].experimentName === "CK: A/B Test Relocation colorize-bundles"){
+          console.log("event[key].variant",event[key].variant);
+          if(event[key].variant === 2){
+            this.cache.v1 = true;
+          }
+        }
+      }
+    }]);
   }
-
 
 }

@@ -16,8 +16,11 @@ window.JSLib = (function (window, document, taskRunner){
         apps.map((app) => {
             try {
                 if(event.detail && event.detail.variants){
-                    event.detail.variants.appId = app.appId;
-                    app.callback(event.detail.variants);           
+
+                    let eventData = Object.assign({},event.detail.variants);
+                    console.log("idChecker", eventData);
+                    eventData.appId = app.appId;
+                    app.callback(eventData);           
                 }
                 //app.callback(event);
             } catch (error) {
@@ -78,6 +81,7 @@ window.JSLib = (function (window, document, taskRunner){
                 // define more functions
         self.add = function(params) {
             params.shift();
+            console.log("current Params", params)
             const [ appId, experimentName, callback ] = params;
             console.log("apps before, reference",appId,callback);
             if(apps.indexOf(appId) === -1){
@@ -120,10 +124,10 @@ window.JSLib = (function (window, document, taskRunner){
                         const config = {
                             method: 'POST',
                             headers: {
-                                'Content-Type': "text/plain"
+                              'Content-Type': "application/json"
                             },
                             body: JSON.stringify(experiments)
-                        }
+                          }
 
                         fetch(
                             "http://localhost:7999/variations", config
