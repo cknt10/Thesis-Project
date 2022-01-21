@@ -5,7 +5,7 @@ import { randomBytes } from "crypto";
 import cors from 'cors';
 
 import { ProductCard } from './interfaces/ProductCard';
-import { tempItems } from "./data/products";
+import { tempItems, variantItems } from "./data/products";
 
 const port: number = 8085;
 
@@ -87,6 +87,26 @@ app.post('/events',async (req,res) => {
   console.log("Received Post-Event from bus", req.body.type as string);
 
   res.send({});
+});
+
+app.post('/variants',async (req,res) => {
+  console.log("Received Variant-Event from bus");
+  const variants = req.body
+
+  variants.forEach((variantObject: any) => {
+    if(variantObject.experimentName === "CK: A/B Test Bubble" && variantObject.variant === 1){
+
+      variantItems.forEach(async product => {
+        
+        productCollection.set(product.id, product);
+        await axios.post('http://localhost:7999/events', {
+          type: 'NewProduct',
+          data: product
+        });
+      });
+    }
+  });
+
 });
 
 app.listen(port, () => {

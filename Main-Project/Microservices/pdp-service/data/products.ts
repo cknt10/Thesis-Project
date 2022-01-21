@@ -59,4 +59,29 @@ const tempItems : ProductCard[] = [
     }
 ]
 
-export { tempItems };
+const variantItems : ProductCard[] = [
+  {
+    id: "6",
+    headline: "Rimuru Artwork",
+    description: "Verpasse deiner Wand ein schleimiges Upgrade.",
+    categories: ["Teens, Kids"],
+    tag: ["Spotlight", "Home", "Bubble Test"],
+    badges: [],
+    sizes:["50x60cm"],
+    price: 8.90,
+    imgSrc: 'https://kk-ck-microfrontend.s3.eu-central-1.amazonaws.com/recommendation/slime.png'
+  },
+  {
+    id: "7",
+    headline: "Vollkommen egal...",
+    description: '...welcher Artikel das ist, wenn Keanu Reeves dir etwas anbietet oder dabei ist hast du darauf zu klicken. Er ist einfach zu awesome!',
+    categories: ["Allrounder"],
+    tag: ["Sub-Culture", "Bubble Test"],
+    badges: ["Dauerbrenner"],
+    sizes:["32","38","42","45"],
+    price: 34.00,
+    imgSrc: 'https://kk-ck-microfrontend.s3.eu-central-1.amazonaws.com/recommendation/keanu.png'
+  }
+]
+
+export { tempItems, variantItems };

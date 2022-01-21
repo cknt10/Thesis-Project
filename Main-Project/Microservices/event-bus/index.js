@@ -41,16 +41,7 @@ app.get('/events', (req, res) => {
 
 app.post('/variations', async(req, res) => {
 
-    //if(req.query.params)console.log("names from Frontend",req.query.params);
-
     console.log("req", req.body);
-    //let testNames = ["CK: A/B Test Bubble"];
-
-    /*
-    if(req.query.params){
-        testNames.push(req.query.params);
-    }
-    */
 
     var data = JSON.stringify({
         "selector": {
@@ -90,29 +81,40 @@ app.post('/variations', async(req, res) => {
         data : data
       };
 
+
+      let parsedDY;
+
       try{
 
-          const result = await axios(config);
-      
-          //console.log("result", /*(result.data), */result.data.choices[0].variations[0].payload.data.variation);
-          
-          let parsedDY = result.data.choices.map(entry =>{
-              let variationValue = entry.variations[0].payload.data;
-              variationValue = (variationValue && variationValue.variation)?variationValue.variation:"c";
-              return {
-                  "experimentId": entry.id,
-                  "experimentName": entry.name,
-                  "variantId": entry.variations[0].id,
-                  "variant": variationValue
-              }
-             });
-             console.log("parsed", parsedDY);
+        const result = await axios(config);
+    
+        //console.log("result", /*(result.data), */result.data.choices[0].variations[0].payload.data.variation);
+        
+        parsedDY = result.data.choices.map(entry =>{
+            let variationValue = entry.variations[0].payload.data;
+            variationValue = (variationValue && variationValue.variation)?variationValue.variation:"c";
+            return {
+                "experimentId": entry.id,
+                "experimentName": entry.name,
+                "variantId": entry.variations[0].id,
+                "variant": variationValue
+            }
+            });
+            console.log("parsed", parsedDY);
              
       
           res.send({ "variants": parsedDY});
       }catch(e){
         res.status(404).send( "failed handling DY-request: " + e);
       }
+
+      try{
+
+        if(parsedDY){
+
+          await axios.post('http://localhost:8085/variants', parsedDY);
+        }
+      }catch(e){console.log( "DY was requestet successfully, but middleware failed handling SS-variant: " + e);}
 });
 
 app.post('/defineUser',async (req, res)=>{

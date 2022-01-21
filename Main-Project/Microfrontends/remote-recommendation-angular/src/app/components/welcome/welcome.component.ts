@@ -1,5 +1,5 @@
 import { JsonpClientBackend } from '@angular/common/http';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { timeout } from 'rxjs';
 import { VariantcacherService } from 'src/app/services/variantcacher.service';
 
@@ -22,19 +22,38 @@ export class WelcomeComponent implements OnInit {
     console.log("v1",this.cache.v1);
   }
 
+  @Output()refetch = new EventEmitter<string>();
+
   ngOnInit(): void {
     // @ts-ignore
     window.JSLib.push(["add","recommendation","CK: A/B Test Relocation colorize-bundles",(event) =>{
       for(let key in event){
-        console.log("event[key].experimentName",event[key].experimentName);
+
         if(event[key].experimentName === "CK: A/B Test Relocation colorize-bundles"){
-          console.log("event[key].variant",event[key].variant);
+
           if(event[key].variant === 2){
             this.cache.v1 = true;
           }
         }
       }
     }]);
+
+    // @ts-ignore
+    window.JSLib.push(["add","recommendation","CK: A/B Test Bubble",(event) =>{
+      for(let key in event){
+
+        if(event[key].experimentName === "CK: A/B Test Bubble"){
+
+          if(event[key].variant/* === 1*/){
+            this.callParent();
+          }
+        }
+      }
+    }]);
+
   }
 
+  callParent(): void {
+    this.refetch.next('refetch');
+  }
 }
