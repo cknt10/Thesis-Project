@@ -16,6 +16,28 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     console.log("init Reco-Home");
     //this.fetchProducts();
+
+    if(localStorage.getItem("voodo reco-bubble")){
+      this.fetchProducts();
+    }
+    else{
+
+      // @ts-ignore
+      window.JSLib.push(["add","recommendation","CK: A/B Test Bubble",async (event) =>{
+        for(let key in event){
+
+          if(event[key].experimentName === "CK: A/B Test Bubble"){
+
+            if(event[key].variant/* === 1*/){
+              await this.fetchProducts();
+              localStorage.setItem("voodo reco-bubble", event[key].variant);
+            }
+          }
+        }
+
+      }]);
+    }
+
   }
 
   async fetchProducts(){

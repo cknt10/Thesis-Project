@@ -22,7 +22,6 @@ export class WelcomeComponent implements OnInit {
     console.log("v1",this.cache.v1);
   }
 
-  @Output()refetch = new EventEmitter<string>();
 
   ngOnInit(): void {
     // @ts-ignore
@@ -38,22 +37,5 @@ export class WelcomeComponent implements OnInit {
       }
     }]);
 
-    // @ts-ignore
-    window.JSLib.push(["add","recommendation","CK: A/B Test Bubble",(event) =>{
-      for(let key in event){
-
-        if(event[key].experimentName === "CK: A/B Test Bubble"){
-
-          if(event[key].variant/* === 1*/){
-            this.callParent();
-          }
-        }
-      }
-    }]);
-
-  }
-
-  callParent(): void {
-    this.refetch.next('refetch');
   }
 }
