@@ -15,19 +15,19 @@ window.JSLib = (function (window, document, taskRunner){
         console.log("Libary got Event", event, apps);
         apps.map((app) => {
             try {
-                if(event.detail && event.detail.variants){
+                if(event.detail && event.detail.length > 0){
 
-                    let eventData = Object.assign({},event.detail.variants);
-                    console.log("idChecker", eventData);
-                    eventData.appId = app.appId;
+                    let eventData = Object.assign({},event.detail);
                     app.callback(eventData);           
                 }
-                //app.callback(event);
+                
             } catch (error) {
                 console.log("callback by custom event not possible",error);
             }
         });
     });
+
+
     
 	const run = (param) => {
         console.log("run", typeof JSLibInstance[param[0]] === "function", param);
@@ -96,6 +96,12 @@ window.JSLib = (function (window, document, taskRunner){
             
             console.log(">>> [JSLib] add function", appId, typeof callback);
         };
+
+        self.getCookie = (name) => {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+          }
     
         self.removeApp = (params) => {
             params.shift();
@@ -118,7 +124,6 @@ window.JSLib = (function (window, document, taskRunner){
                         if(params && params.length > 1){
 
                             experiments.push(params[1]);
-                            console.log("param unso", JSON.stringify(experiments));
                         }
 
                         const config = {
@@ -126,18 +131,24 @@ window.JSLib = (function (window, document, taskRunner){
                             headers: {
                               'Content-Type': "application/json"
                             },
-                            body: JSON.stringify(experiments)
-                          }
+                            body: JSON.stringify({
+                                "experiments": experiments,
+                                "dy_uId": this.getCookie("dy_uId"),
+                                "dy_sId": this.getCookie("dy_sId"),
+                            })
+                        }
 
-                        fetch(
-                            "http://localhost:7999/variations", config
-                        )
+                        fetch("http://localhost:7999/variations", config)
                         .then((response) => response.json()
                             .then(response =>{
                                 
                                 console.log("Libary", response);
+
+                                for(let cookieKey in response.cookies){
+                                    document.cookie=response.cookies[cookieKey];
+                                }
                                 
-                                var event = new CustomEvent("voodoo-get-variations", { "detail": response });
+                                var event = new CustomEvent("voodoo-get-variations", { "detail": response.variants });
 
                                 document.dispatchEvent(event);
                                 resolve;

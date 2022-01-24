@@ -11,19 +11,28 @@ export class RecommendationService {
 
   constructor(private http: HttpClient) { }
 
-  async getProducts(id: string){
+  getCookie(name: string){
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts && parts.length === 2) return parts.pop()?.split(';').shift();
+    else return undefined;
+  }
+
+  async getProducts(){
     return new Promise<ProductCard []>(async (resolve, reject) => {
       try{
-        if(id){
-          //const params = new HttpParams()
-          //.set('id', id);
 
-          const response = await lastValueFrom(this.http.get<ProductCard []>('http://localhost:8086/products'  /*, { params: params }*/));
-
-          console.log("resp",response);
-
-          resolve(response);
+        let params = new HttpParams();
+        if(this.getCookie("dy_uId")){
+          params = new HttpParams().set('dy_uId', this.getCookie("dy_uId")!);
         }
+
+        console.log("prod params", params,this.getCookie("dy_uId"));
+        const response = await lastValueFrom(this.http.get<ProductCard []>('http://localhost:8086/products'  , { params: params }));
+
+        console.log("reco response in frontend",response);
+
+        resolve(response);
 
       }catch (error){
         reject(error);

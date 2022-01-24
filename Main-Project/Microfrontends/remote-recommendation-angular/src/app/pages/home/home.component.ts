@@ -17,33 +17,32 @@ export class HomeComponent implements OnInit {
     console.log("init Reco-Home");
     //this.fetchProducts();
 
-    if(localStorage.getItem("voodo reco-bubble")){
+    if(this.recoService_.getCookie("dy_uId")){
       this.fetchProducts();
     }
     else{
 
       // @ts-ignore
       window.JSLib.push(["add","recommendation","CK: A/B Test Bubble",async (event) =>{
+
+        console.log("the event", event);
         for(let key in event){
 
           if(event[key].experimentName === "CK: A/B Test Bubble"){
 
-            if(event[key].variant/* === 1*/){
+            if(event[key].variant){
               await this.fetchProducts();
-              localStorage.setItem("voodo reco-bubble", event[key].variant);
             }
           }
         }
 
       }]);
     }
-
   }
 
   async fetchProducts(){
 
-    let newProducts = await this.recoService_.getProducts("ka");
-    // this.items.push(newProducts);
+    let newProducts = await this.recoService_.getProducts();
     this.items = newProducts;
     let temp :ProductCard[]= [];
     this.items = this.items.concat(temp);

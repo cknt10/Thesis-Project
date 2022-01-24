@@ -1,6 +1,8 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
+const requestIp = require('request-ip');
+const userAgent = require('express-useragent');
 
 const app = express();
 
@@ -41,18 +43,31 @@ app.get('/events', (req, res) => {
 
 app.post('/variations', async(req, res) => {
 
-    console.log("req", req.body);
+    console.log("req", req.body );
+    const rawAgent = req.headers['user-agent'];
+    agentValue = userAgent.parse(rawAgent).source;
 
-    var data = JSON.stringify({
+    const body = req.body;
+
+    let dyDataObject = {
         "selector": {
-          "names": req.body
+          "names": body.experiments
         },
         "user": {
-          "dyid": "customUserId123"
+
+        },
+        "session": {
+
+        },
+        /*
+        "user": {
+          "dyid": "customUserId123",
+          "dyid_server": "2467972795010480165"
         },
         "session": {
           "dy": "myCustomSession345"
         },
+        */
         "context": {
           "page": {
             "type": "HOMEPAGE",
@@ -61,15 +76,25 @@ app.post('/variations', async(req, res) => {
             "data": []
           },
           "device": {
-            "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36",
-            "ip": "54.100.200.255"
+            "userAgent": agentValue,
+            "ip": requestIp.getClientIp(req)
           }
         },
         "options": {
           "isImplicitPageview": false,
           " returnAnalyticsMetadata": false
         }
-      });
+      }
+
+      if(body.dy_uId && body.dy_uId.length > 0 /*&& body.dy_sId && body.dy_sId.length > 0*/){
+        dyDataObject["user"] = {
+          "dyid": body.dy_uId,
+          "dyid_server":  body.dy_uId
+        }
+        dyDataObject["session"] = {
+          "dy": body.dy_sId
+        }
+      };
       
       var config = {
         method: 'post',
@@ -78,7 +103,7 @@ app.post('/variations', async(req, res) => {
           'dy-api-key': '249626a040af3d20cd87dadd2ef128554667170f06f779958f615a7a1cf132f1', 
           'Content-Type': 'application/json'
         },
-        data : data
+        data : JSON.stringify(dyDataObject)
       };
 
 
@@ -90,31 +115,35 @@ app.post('/variations', async(req, res) => {
     
         //console.log("result", /*(result.data), */result.data.choices[0].variations[0].payload.data.variation);
         
-        parsedDY = result.data.choices.map(entry =>{
-            let variationValue = entry.variations[0].payload.data;
-            variationValue = (variationValue && variationValue.variation)?variationValue.variation:"c";
-            return {
-                "experimentId": entry.id,
-                "experimentName": entry.name,
-                "variantId": entry.variations[0].id,
-                "variant": variationValue
+        const data =result.data;
+
+        parsedDY = data.choices.map(entry =>{
+          let variationValue = entry.variations[0].payload.data;
+          variationValue = (variationValue && variationValue.variation)?variationValue.variation:"c";
+          return {
+            "experimentId": entry.id,
+            "experimentName": entry.name,
+            "variantId": entry.variations[0].id,
+            "variant": variationValue,
+          }
+        });
+
+        const uId = data.cookies[0].value;
+        const sId = data.cookies[1].value;
+
+        console.log("my-dy", parsedDY);
+  
+        res.send({
+            "variants": parsedDY,
+            "cookies": {
+              "dy_uId": `dy_uId=${uId};max-age=${uId};path=/;`,
+              "dy_sId": `dy_sId=${sId};max-age=${sId};path=/;`
             }
-            });
-            console.log("parsed", parsedDY);
-             
-      
-          res.send({ "variants": parsedDY});
+          });
       }catch(e){
         res.status(404).send( "failed handling DY-request: " + e);
       }
 
-      try{
-
-        if(parsedDY){
-
-          await axios.post('http://localhost:8085/variants', parsedDY);
-        }
-      }catch(e){console.log( "DY was requestet successfully, but middleware failed handling SS-variant: " + e);}
 });
 
 app.post('/defineUser',async (req, res)=>{

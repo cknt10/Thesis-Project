@@ -89,31 +89,13 @@ app.post('/events',async (req,res) => {
   res.send({});
 });
 
-app.post('/variants',async (req,res) => {
-  console.log("Received Variant-Event from bus");
-  const variants = req.body
-
-  variants.forEach((variantObject: any) => {
-    if(variantObject.experimentName === "CK: A/B Test Bubble" && variantObject.variant === 1){
-
-      variantItems.forEach(async product => {
-        
-        productCollection.set(product.id, product);
-        await axios.post('http://localhost:7999/events', {
-          type: 'NewProduct',
-          data: product
-        });
-      });
-    }
-  });
-
-});
-
 app.listen(port, () => {
 
   console.log(`localhost startet @port ${port}`);
 
-  tempItems.forEach(async product => {
+  const items = tempItems.concat(variantItems);
+
+  items.forEach(async product => {
     
     productCollection.set(product.id, product);
     await axios.post('http://localhost:7999/events', {
