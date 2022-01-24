@@ -27,3 +27,17 @@
     color: #fff;
     bottom: -60px;
 }
+
+
+.MuiInputLabel-formControl, .MuiSvgIcon-root, .MuiInputBase-input{
+    color: #fff !important;
+}
+/*
+.MuiOutlinedInput-root{
+    border: 1px solid #fff;
+}
+*/
+
+.Mui-focused .MuiOutlinedInput-notchedOutline{
+    border-color: #fff !important;
+}

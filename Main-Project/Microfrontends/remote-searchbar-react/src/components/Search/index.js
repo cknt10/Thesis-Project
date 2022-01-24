@@ -92,7 +92,7 @@ const Search = () => {
                             renderInput={(params) => (
                                 <TextField
                                     {...params}
-                                    label="Asynchronous"
+                                    label="Suche..."
                                     InputProps={{
                                         ...params.InputProps,
                                         endAdornment: (
