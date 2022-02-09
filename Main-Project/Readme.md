@@ -49,3 +49,18 @@ localhost:8087 -> search-service
 localhost:8088
 
 localhost:7999 -> event bus-service
+
+#### Installation via Terminal
+
+Shortcut: Führe "npm run init-ms" innerhalb Microfrontends-Verzeichnisses aus
+
+Ansonsten: Führe "npm i" innerhalb des entsprechenden Verzeichnisses aus
+
+#### Start via Terminal
+(erfordert Installation)
+
+Shortcut: Keines, es Abhängigkeiten zwischen den Services gibt.
+
+Start: Führe "npm run start" in den Verzeichnissen aus.
+
+Empfehlung: Zuerst den Event-Bus starten, danach die  Query-Services und als letztes den PDP-Service. Wobei die beiden letzteren aufgrung der Catch-Up Mechanik in ihrer chronologischen Reihenfolge zu vernachlässigen sind

@@ -74,6 +74,6 @@ export class AppComponent {
 
   referenceToChild(componentReference: any){
     this.currentChild = componentReference;
-    console.log("newReference", componentReference, typeof componentReference);
+    //console.log("newReference", componentReference, typeof componentReference);
   }
 }

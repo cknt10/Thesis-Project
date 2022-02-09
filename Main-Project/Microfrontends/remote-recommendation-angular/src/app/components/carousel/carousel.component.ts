@@ -20,6 +20,8 @@ export class CarouselComponent implements OnInit {
 
   viewport: Subscription;
 
+  public isLoading: boolean = true;
+
   @Input() set items(items: ProductCard[]){
     console.log("detect change", `items length = ${this._items.length}`);
     this._items = items;
@@ -30,8 +32,6 @@ export class CarouselComponent implements OnInit {
   callService(){
     this._devicedecider.onResize();
   }
-
-  public isLoading: boolean;
 
   _items: ProductCard[];
 

@@ -74,7 +74,7 @@ const variantItems : ProductCard[] = [
   {
     id: "7",
     headline: "Vollkommen egal...",
-    description: '...welcher Artikel das ist, wenn Keanu Reeves dir etwas anbietet oder dabei ist hast du darauf zu klicken. Er ist einfach zu awesome!',
+    description: '...welcher Artikel das ist, wenn Keanu Reeves dir etwas anbietet, hast du darauf zu klicken. Er ist einfach zu awesome!',
     categories: ["Allrounder"],
     tag: ["Sub-Culture", "Bubble Test"],
     badges: ["Dauerbrenner"],

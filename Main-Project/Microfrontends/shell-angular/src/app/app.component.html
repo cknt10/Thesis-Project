@@ -1,6 +1,11 @@
 <nav>
   <ul class="nav-list nav-upper">
-    <li class="nav-item banner_logo"><a href="" target="_blank"><img width="122px" height="24px" src="https://kk-ck-microfrontend.s3.eu-central-1.amazonaws.com/shell/logo.svg"/></a></li> <!-- src="https://kk-ck-microfrontend.s3.eu-central-1.amazonaws.com/shell/logo.png" -->
+    <li class="nav-item banner_logo">
+      <a href="" target="_blank">
+        <div id="header_logo">Voodoo</div>
+        <!--<img width="122px" height="24px" src="https://kk-ck-microfrontend.s3.eu-central-1.amazonaws.com/shell/logo.svg"/>-->
+      </a>
+    </li> <!-- src="https://kk-ck-microfrontend.s3.eu-central-1.amazonaws.com/shell/logo.png" -->
     <div id="searchbar_container"></div>
     <li class="nav-item btn_login" (click)="login()"><div>{{isLoggedIn?'Logout':'Login'}}</div></li>
   </ul>

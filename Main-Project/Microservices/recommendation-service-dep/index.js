@@ -94,7 +94,7 @@ app.get('/products', async (req, res) => {
     console.log("failed requesting SS-variant", er);
   }
 
-  res.status(201).send(responseValue);
+  res.status(200).send(responseValue);
 });
 
 app.post('/events', async (req, res) => {

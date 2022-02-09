@@ -26,15 +26,15 @@ export class WelcomeComponent implements OnInit {
   ngOnInit(): void {
     // @ts-ignore
     window.JSLib.push(["add","recommendation","CK: A/B Test Relocation colorize-bundles",(event) =>{
-      for(let key in event){
+      //for(let key in event){
 
-        if(event[key].experimentName === "CK: A/B Test Relocation colorize-bundles"){
+        //if(event[key].experimentName === "CK: A/B Test Relocation colorize-bundles"){
 
-          if(event[key].variant === 2){
+          if(event.variant === 2){
             this.cache.v1 = true;
           }
-        }
-      }
+        //}
+      //}
     }]);
 
   }

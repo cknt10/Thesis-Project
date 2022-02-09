@@ -10,7 +10,7 @@ app.use(cors());
 
 const products = {};
 
-var loggedIn = false
+var loggedIn = false;
 
 const handleEvent = (type, data) => {
     if(type === 'NewProduct'){
@@ -29,7 +29,6 @@ const handleEvent = (type, data) => {
 }
 
 app.get('/events', (req, res) => {
-
 
     res.send(products);
 });
@@ -61,7 +60,6 @@ app.post('/events', (req, res)=>{
     handleEvent(type, data);
 
     res.send({});
-
 });
 
 app.post('/defineUser', (req,res) => {
@@ -82,7 +80,7 @@ app.listen(port, async () => {
     const res = await axios.get('http://localhost:7999/events');
 
     for (let event of res.data){
-        console.log("processing event:", event.type);
+        console.log("processing event: ", event.type);
 
         handleEvent(event.type, event.data);
     }

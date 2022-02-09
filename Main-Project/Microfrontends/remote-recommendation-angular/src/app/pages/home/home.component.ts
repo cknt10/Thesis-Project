@@ -26,15 +26,15 @@ export class HomeComponent implements OnInit {
       window.JSLib.push(["add","recommendation","CK: A/B Test Bubble",async (event) =>{
 
         console.log("the event", event);
-        for(let key in event){
+        //for(let key in event){
 
-          if(event[key].experimentName === "CK: A/B Test Bubble"){
+          //if(event[key].experimentName === "CK: A/B Test Bubble"){
 
-            if(event[key].variant){
+            if(event.variant){
               await this.fetchProducts();
             }
-          }
-        }
+          //}
+        //}
 
       }]);
     }

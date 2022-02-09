@@ -6,9 +6,8 @@ window.JSLib = (function (window, document, taskRunner){
     
 	let JSLibInstance;
     let instanceInitialized = false;
-    let pending = false;
     const apps = [];
-    const experiments = [];
+    var experiments = [];
 
     document.addEventListener('voodoo-get-variations', (event) => {
 
@@ -18,7 +17,14 @@ window.JSLib = (function (window, document, taskRunner){
                 if(event.detail && event.detail.length > 0){
 
                     let eventData = Object.assign({},event.detail);
-                    app.callback(eventData);           
+                    for (let key in eventData){
+                        console.log("check callback",eventData[key].experimentName , app.experiment, "app", app);
+                        if(eventData[key].experimentName === app.experiment){
+                            console.log("found callback");
+                            app.callback(eventData[key]);  
+                        }
+                    }
+                    //app.callback(eventData);           
                 }
                 
             } catch (error) {
@@ -88,6 +94,7 @@ window.JSLib = (function (window, document, taskRunner){
 
                 apps.push({
                     appId: appId,
+                    experiment: experimentName,
                     callback: callback
                 });
 
@@ -112,63 +119,55 @@ window.JSLib = (function (window, document, taskRunner){
         }
 
         self.update = (params) => {
-        
-            if(!pending){
-                
-                pending=!pending;
+
+            experiments = [...new Set(experiments)];
+
+            return new Promise(async (resolve, reject) => {
     
-                return new Promise(async (resolve, reject) => {
-        
-                    try {
-                        
-                        if(params && params.length > 1){
+                try {
+                    
+                    if(params && params.length > 1){
 
-                            experiments.push(params[1]);
-                        }
-
-                        const config = {
-                            method: 'POST',
-                            headers: {
-                              'Content-Type': "application/json"
-                            },
-                            body: JSON.stringify({
-                                "experiments": experiments,
-                                "dy_uId": this.getCookie("dy_uId"),
-                                "dy_sId": this.getCookie("dy_sId"),
-                            })
-                        }
-
-                        fetch("http://localhost:7999/variations", config)
-                        .then((response) => response.json()
-                            .then(response =>{
-                                
-                                console.log("Libary", response);
-
-                                for(let cookieKey in response.cookies){
-                                    document.cookie=response.cookies[cookieKey];
-                                }
-                                
-                                var event = new CustomEvent("voodoo-get-variations", { "detail": response.variants });
-
-                                document.dispatchEvent(event);
-                                resolve;
-                            })
-                        );
-                    } catch (error) {
-                        console.log("failed Fetch", error)
-                        reject(error);
+                        experiments.push(params[1]);
                     }
-                    finally{
-        
-                        pending=!pending;
+
+                    const config = {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': "application/json"
+                        },
+                        body: JSON.stringify({
+                            "experiments": experiments,
+                            "dy_uId": this.getCookie("dy_uId"),
+                            "dy_sId": this.getCookie("dy_sId"),
+                        })
                     }
-        
-                });
-            
-                } else {
-            
-                    // mache nichts
+
+                    fetch("http://localhost:7999/variations", config)
+                    .then((response) => response.json()
+                        .then(response =>{
+                            
+                            console.log("Libary", response);
+
+                            for(let cookieKey in response.cookies){
+                                document.cookie=response.cookies[cookieKey];
+                            }
+                            
+                            var event = new CustomEvent("voodoo-get-variations", { "detail": response.variants });
+
+                            document.dispatchEvent(event);
+                            resolve;
+                        })
+                    );
+                } catch (error) {
+                    console.log("failed Fetch", error)
+                    reject(error);
                 }
+                finally{
+    
+                }
+    
+            });
         };
         
 	};
