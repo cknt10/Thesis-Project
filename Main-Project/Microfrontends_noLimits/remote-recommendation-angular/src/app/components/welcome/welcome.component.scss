@@ -1,0 +1,119 @@
+@import './../../vendor/vars.scss';
+
+h1{
+  line-height: 3rem;
+  font-size: 3rem;
+  padding: 20px;
+}
+
+h2{
+  line-height: 2.8rem;
+  font-size: 2.6rem;
+  padding: 16px;
+}
+
+h3{
+  line-height: 2.2rem;
+  font-size: 2rem;
+  padding: 12px;
+}
+
+h1, h2, h3{
+
+  text-align: center;
+  font-weight: 200;
+}
+
+.bundles_welcome{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  > div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    margin: 2rem;
+
+    &:nth-child(1) img{
+
+        margin-left: -60px;
+        //transform: translateX(-60px);
+    }
+
+    &:nth-child(2) img{
+
+      margin-left: -28px;
+      top: -15px;
+      //transform: scale(1.2);
+      //transform: translate3d(-28px, -15px, 0) scale(1.2);
+    }
+
+    &:nth-child(3) img{
+
+      margin-left: -28px;
+      top: -15px;
+      //transform: scale(1.2);
+      //transform: translate3d(-28px, -15px, 0) scale(1.2);
+    }
+  }
+
+  .img_wrapper{
+    overflow: hidden;
+    border-radius: 50%;
+    border: $button 4px solid;
+    width: 180px;
+    height: 180px;
+    transition: 1s ease;
+
+    img{
+      height: 100%;
+/*
+      &:hover{
+        border: #00841a 2px solid;
+        //opacity: 0.8;
+        //transform: scale(1.4) translateX(-10px);
+      }
+      */
+    }
+    &:hover{
+      border: $power 4px solid;
+      //opacity: 0.8;
+      //transform: scale(1.4) translateX(-10px);
+    }
+  }
+
+  .bundles_text{
+    font-size: 1.2rem;
+  }
+}
+
+.v1{
+
+  .bundle_wrapper{
+
+    .img_wrapper{
+      border-radius: 0;
+      width: 210px;
+    }
+
+    padding: 2rem 0.6rem;
+    border: 0.1rem solid black;
+    &.b_sw{
+
+      background-color: $power;
+      //text-shadow: 3px 2px 4px $power;
+    }
+    &.b_cp{
+      background-color: rgb(206, 173, 7);
+      //text-shadow: 3px 2px 4px rgb(206, 173, 7);
+    }
+    &.b_uw{
+      background-color: $button;
+      color: white;
+      //text-shadow: 3px 2px 4px $button;
+    }
+  }
+}

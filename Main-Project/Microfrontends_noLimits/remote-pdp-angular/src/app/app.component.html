@@ -1,0 +1,55 @@
+<div class="pdp">
+  <div class="pdp_container">
+    <div class="pdp_image-wrapper">
+      <img src="{{item.imgSrc}}" class="pdp_image">
+    </div>
+    <div class="pdp_product-content">
+      <div class="pdp_taglist">
+        <div *ngFor="let badge of item.badges">
+          <div class="pdp_tag">{{ badge }}</div>
+        </div>
+      </div>
+      <h1>{{item.headline}}</h1>
+      <h2>{{item.price | currency:"EUR":true}}</h2>
+      <section class="pdp_desc">
+        <div>
+          {{item.description}}
+        </div>
+      </section>
+      <section>
+        <div class="pdp_sizes">
+          <div>
+            Größe:
+          </div>
+          <form>
+            <select name="sizes" class="slct">
+              <ng-container *ngFor="let size of item.sizes">
+                <option value="{{size}}">{{size}}</option>
+              </ng-container>
+            </select>
+          </form>
+        </div>
+      </section>
+      <div class="pdp_deliv">
+        Lieferzeit: 3-5 Tage
+      </div>
+      <div class="pdp_positioner">
+
+        <button class="pdp_cta">
+          Add To Cart
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<section class="casual_info">
+  <h2>Lorem!</h2>
+
+  <article>
+    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+  </article>
+</section>

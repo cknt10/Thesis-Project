@@ -1,0 +1,37 @@
+<nav>
+  <ul class="nav-list nav-upper">
+    <li class="nav-item banner_logo">
+      <a href="" target="_blank">
+        <div id="header_logo">Voodoo</div>
+        <!--<img width="122px" height="24px" src="https://kk-ck-microfrontend.s3.eu-central-1.amazonaws.com/shell/logo.svg"/>-->
+      </a>
+    </li> <!-- src="https://kk-ck-microfrontend.s3.eu-central-1.amazonaws.com/shell/logo.png" -->
+    <div id="searchbar_container"></div>
+    <li class="nav-item btn_login" (click)="login()"><div>{{isLoggedIn?'Logout':'Login'}}</div></li>
+  </ul>
+  <ul class="nav-list nav-lower">
+    <li class="nav-item" *ngFor="let microfrontend of mfService.microfrontends">
+      <ng-container *ngIf='microfrontend.displayName !== "Produktansicht"'>
+
+        <a [routerLink]="microfrontend.routePath">{{ microfrontend.displayName }}</a>
+      </ng-container>
+    </li>
+  </ul>
+</nav>
+
+<div class="mfe_container">
+  <router-outlet (activate)="referenceToChild($event)"></router-outlet>
+</div>
+
+<footer>
+  <div class="line"></div>
+  <div class="links">
+    <a href="#">Lorem</a>
+    <a href="#">Ipsulum</a>
+    <a href="#">Impressum</a>
+  </div>
+  <div class="copyright">
+
+    <div>Copyright@Mustermann&funnyGuys</div>
+  </div>
+</footer>

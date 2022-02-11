@@ -1,0 +1,21 @@
+@import '~@angular/material/theming';
+
+
+//Colors
+@include mat-core();//base styling
+
+//$theme-primary: mat-palette($indigo-palette);
+$theme-primary: mat-palette($mat-indigo);
+$theme-accent: mat-palette($mat-deep-purple, A200, A100, A400);
+$theme-warm: mat-palette($mat-red);
+
+$theme: mat-light-theme($theme-primary, $theme-accent, $theme-warm);
+
+@include angular-material-theme($theme);
+
+//Fonts
+$custom-typography: mat-typography-config(
+  $font-family: 'Open Sans'
+);
+
+@include angular-material-typography($custom-typography);

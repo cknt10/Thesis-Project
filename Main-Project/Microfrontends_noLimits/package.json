@@ -1,0 +1,8 @@
+{
+    "scripts": {
+        "init-mfe": 
+        "npm --prefix remote-pdp-angular i & npm --prefix remote-recommendation-angular i & npm --prefix remote-searchbar-react i & npm --prefix shell-angular i",
+        "start-mfe":
+        "npm --prefix remote-pdp-angular run ng serve & npm --prefix remote-recommendation-angular run ng serve & npm --prefix remote-searchbar-react run start & npm --prefix shell-angular run ng serve"
+    } 
+}

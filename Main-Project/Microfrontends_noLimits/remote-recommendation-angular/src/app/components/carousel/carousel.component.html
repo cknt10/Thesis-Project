@@ -1,0 +1,29 @@
+
+
+
+  <h2 class="slider-headline">Already seen this?</h2>
+
+  <div class="container-padding">
+
+    <div class="slider-wrapper">
+      <div *ngIf="!isLoading; else loader">
+
+        <swiper [config]="config" class="mySwiper">
+          <ng-template swiperSlide *ngFor="let item of _items">
+            <app-card [item]="item"></app-card>
+          </ng-template>
+        </swiper>
+
+        <button class="swiper-arrow previous-slide"></button>
+        <button class="swiper-arrow next-slide"></button>
+
+      </div>
+      <ng-template #loader>
+        <div class="spinner-wrapper">
+
+          <mat-spinner></mat-spinner>
+        </div>
+      </ng-template>
+
+  </div>
+  </div>

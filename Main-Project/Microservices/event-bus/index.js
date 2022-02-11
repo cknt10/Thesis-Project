@@ -59,15 +59,6 @@ app.post('/variations', async(req, res) => {
         "session": {
 
         },
-        /*
-        "user": {
-          "dyid": "customUserId123",
-          "dyid_server": "2467972795010480165"
-        },
-        "session": {
-          "dy": "myCustomSession345"
-        },
-        */
         "context": {
           "page": {
             "type": "HOMEPAGE",
