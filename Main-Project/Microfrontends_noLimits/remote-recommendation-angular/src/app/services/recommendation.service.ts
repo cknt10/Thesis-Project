@@ -18,56 +18,58 @@ export class RecommendationService {
     else return undefined;
   }
 
-  async getTest(){
+  getTest(){
+    return new Promise(async (resolve,reject) => {
 
-    var myHeaders = new Headers();
-    myHeaders.append("dy-api-key", "249626a040af3d20cd87dadd2ef128554667170f06f779958f615a7a1cf132f1");
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Accept", "*/*");
-    myHeaders.append("Accept-Encoding", "gzip, deflate, br")
-    myHeaders.append("Connection", "keep-alive")
-    myHeaders.append("Host", "dy-api.com")
+      var myHeaders = new Headers();
+      myHeaders.append("DY-API-Key", "b19202c4997c857541d3bd9f972bad35195fa0acb4aa9474d74e28f8995b0d65");
+      myHeaders.append("Content-Type", "application/json");
 
 
-    var raw = JSON.stringify({
-      "selector": {
-        "names": [
-          "CK: A/B Test Bubble"
-        ]
-      },
-      "user": {},
-      "session": {},
-      "context": {
-        "page": {
-          "type": "HOMEPAGE",
-          "location": "https://example.org",
-          "locale": "en_US",
-          "data": []
+      var raw = JSON.stringify({
+        "selector": {
+          "names": [
+            "CK: A/B Test Bubble"
+          ]
         },
-        "device": {
-          "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36",
-          "ip": "54.100.200.255"
+        "user": {},
+        "session": {},
+        "context": {
+          "page": {
+            "type": "HOMEPAGE",
+            "location": "https://example.org",
+            "locale": "en_US",
+            "data": []
+          },
+          "device": {
+            "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36",
+            "ip": "54.100.200.255"
+          }
+        },
+        "options": {
+          "isImplicitPageview": false,
+          "returnAnalyticsMetadata": false
         }
-      },
-      "options": {
-        "isImplicitPageview": false,
-        "returnAnalyticsMetadata": false
-      }
+      });
+
+      var requestOptions = {
+        method: 'POST',
+        //mode: 'no-cors',
+        headers: myHeaders,
+        body: raw
+      };
+
+
+      let response = await fetch("https://direct.dy-api.com/v2/serve/user/choose", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+          return result;
+        })
+        .catch(error => console.log('error', error));
+
+        resolve(response);
     });
 
-    var requestOptions = {
-      method: 'POST',
-      //mode: 'no-cors',
-      headers: myHeaders,
-      body: raw
-    };
-
-    console.log("gogogo", requestOptions);
-
-    fetch("https://dy-api.com/v2/serve/user/choose", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log("wtf",result))
-      .catch(error => console.log('error', error));
   }
 
   async getProducts(){

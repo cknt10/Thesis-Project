@@ -126,7 +126,6 @@ app.listen(port, async () => {
 
   for (let event of res.data){
       console.log("processing event:", event.type, event.data);
-
       handleEvent(event.type, event.data);
   }
 });

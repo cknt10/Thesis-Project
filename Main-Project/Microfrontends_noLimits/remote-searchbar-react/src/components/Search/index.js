@@ -44,9 +44,9 @@ const Search = () => {
     }, [results]);
 
     useEffect(() => {
-        console.log("sb", experiments, experiments[0]);
-            experiments.forEach(app => {
-                if(app.experimentName === "CK: A/B Test Bubble" && app.variant === 1/*app.appId.includes("react-search")*/){
+            experiments[0]?.choices?.forEach(app => {
+                //console.log("mee",app.name, app.variations[0].payload.data.variation);
+                if(app.name === "CK: A/B Test Bubble" && app.variations[0].payload.data.variation === 1/*app.appId.includes("react-search")*/){
                     setBubble(
                         <div className="bubble">
                             <div><i className="arrow"></i></div>

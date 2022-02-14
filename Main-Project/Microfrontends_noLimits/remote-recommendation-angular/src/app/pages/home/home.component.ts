@@ -16,7 +16,9 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     console.log("init Reco-Home");
     //this.fetchProducts();
+    this.start();
 
+    /*
     if(this.recoService_.getCookie("dy_uId")){
       this.fetchProducts();
 
@@ -26,6 +28,19 @@ export class HomeComponent implements OnInit {
 
      this.recoService_.getTest();
     }
+    */
+  }
+
+  async start(){
+    try{
+      const variant: any = await this.recoService_.getTest();
+      console.log("isn", variant.choices[0].name = "CK: A/B Test Bubble",  variant.choices[0].variations[0].payload.data.variation);
+
+    } catch(e){
+
+    }
+    //eig reload mit der Referenz
+    this.fetchProducts();
   }
 
   async fetchProducts(){
