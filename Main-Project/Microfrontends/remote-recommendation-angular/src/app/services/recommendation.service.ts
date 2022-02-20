@@ -27,7 +27,6 @@ export class RecommendationService {
           params = new HttpParams().set('dy_uId', this.getCookie("dy_uId")!);
         }
 
-        console.log("prod params", params,this.getCookie("dy_uId"));
         const response = await lastValueFrom(this.http.get<ProductCard []>('http://localhost:8086/products'  , { params: params }));
 
         console.log("reco response in frontend",response);

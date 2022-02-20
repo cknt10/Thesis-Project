@@ -65,7 +65,7 @@ export class AppComponent {
       })
 
       // @ts-ignore
-      mount(document.querySelector('#searchbar_container'), "user logged in");
+      mount(document.querySelector('#searchbar_container'));
       //buildSearchbar();
       this.currentChild.ngOnInit();
       this.isLoggedIn = !this.isLoggedIn;

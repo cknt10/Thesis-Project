@@ -43,15 +43,10 @@ const handleEvent = async (type, data) => {
 }
 
 app.get('/products', async (req, res) => {
-  //console.log("request",  req  );
-
 
   let responseValue = Object.keys(products).map(key => {
     return products[key].product;
   });
-
-
-  console.log("initial Value",responseValue.length);
 
   if(!loggedIn){
     responseValue = responseValue.filter(product => {
@@ -74,8 +69,7 @@ app.get('/products', async (req, res) => {
         for(let experiment in response.data.variants){
           let expValue = response.data.variants[experiment];
           
-          if(expValue.experimentName === 'CK: A/B Test Bubble'){
-            if(expValue.variant === 1){
+            if(expValue.experimentName === 'CK: A/B Test Bubble' && expValue.variant === 1){
               console.log("exp Value",responseValue.length);
             }
             else {
@@ -86,9 +80,17 @@ app.get('/products', async (req, res) => {
                 else return true;
               });
             }
-          }
         }
       });
+
+      else{
+        responseValue = responseValue.filter(product => {
+          if(product.tag && product.tag.includes("Bubble Test")){
+            return false;
+          }
+          else return true;
+        });
+      }
   }
   catch(er){
     console.log("failed requesting SS-variant", er);

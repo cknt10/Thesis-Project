@@ -15,8 +15,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("init Reco-Home");
-    //this.fetchProducts();
+    this.start();
 
+  }
+
+  async start(){
+    await this.fetchProducts();
     if(this.recoService_.getCookie("dy_uId")){
       this.fetchProducts();
     }
@@ -46,7 +50,7 @@ export class HomeComponent implements OnInit {
     this.items = newProducts;
     let temp :ProductCard[]= [];
     this.items = this.items.concat(temp);
-    console.log("fetch items", this.items);
+    console.log("fetch items", this.items.length);
   }
 
 }

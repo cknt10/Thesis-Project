@@ -17,10 +17,12 @@ if(devRoot) {
     mount(devRoot);
 }
 
+/*
 const staticRoot = document.querySelector('#shell-root');
 
 if(staticRoot) {
     mount(staticRoot);
 }
+*/
 
 export { mount };

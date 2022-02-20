@@ -32,6 +32,8 @@ export class HomeComponent implements OnInit {
   }
 
   async start(){
+
+    await this.fetchProducts();
     try{
       const variant: any = await this.recoService_.getTest();
       console.log("isn", variant.choices[0].name = "CK: A/B Test Bubble",  variant.choices[0].variations[0].payload.data.variation);

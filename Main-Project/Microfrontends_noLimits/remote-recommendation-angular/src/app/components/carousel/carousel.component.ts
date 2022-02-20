@@ -26,6 +26,7 @@ export class CarouselComponent implements OnInit {
     console.log("detect change", `items length = ${this._items.length}`);
     this._items = items;
     if(this._items.length > 0) this.isLoading = false;
+    console.log("new items", items.length);
   }
 
   @HostListener('window:resize', ['$event'])
