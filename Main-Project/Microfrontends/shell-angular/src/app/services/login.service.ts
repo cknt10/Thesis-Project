@@ -28,7 +28,6 @@ export class LoginService {
         else{
           console.log("am i logged in?");
           let response = await this.http.get<object>('http://localhost:7999/defineUser').toPromise();
-          console.log("lolxD", response["response"]);
           resolve(response["response"]);
         }
 

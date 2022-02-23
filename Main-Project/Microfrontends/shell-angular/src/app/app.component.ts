@@ -56,7 +56,7 @@ export class AppComponent {
       success = await this.loginService.defineUser("logout") as boolean;
     }
     if(success){
-      console.log("Login/Logiut completly successfull, user should get vip products too now");
+      console.log("Login/Logout completly successfull, user should get vip products too now");
       console.log("Rebuild MFE's in process...");
 
       this.route.queryParams.subscribe(params => {
