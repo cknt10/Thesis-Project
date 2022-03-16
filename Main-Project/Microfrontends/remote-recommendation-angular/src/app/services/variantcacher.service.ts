@@ -5,7 +5,12 @@ import { Injectable } from '@angular/core';
 })
 export class VariantcacherService {
 
-  public v1 = false;
+  public v2 = false;
 
-  constructor() { }
+  constructor() {
+    //console.log("FATTY CONST", this.v2);
+    this.v2 = localStorage.getItem("bundleTest") === "v2";
+
+    //console.log("FATTY CONST", this.v2, localStorage.getItem("bundleTest") === "v2");
+  }
 }

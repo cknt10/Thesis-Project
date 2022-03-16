@@ -1,6 +1,4 @@
-import { JsonpClientBackend } from '@angular/common/http';
 import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
-import { timeout } from 'rxjs';
 import { VariantcacherService } from 'src/app/services/variantcacher.service';
 
 @Component({
@@ -19,7 +17,7 @@ export class WelcomeComponent implements OnInit {
   ];
 
   constructor(public cache: VariantcacherService) {
-    console.log("v1",this.cache.v1);
+    console.log("v1",this.cache.v2);
   }
 
 
@@ -31,11 +29,14 @@ export class WelcomeComponent implements OnInit {
         //if(event[key].experimentName === "CK: A/B Test Relocation colorize-bundles"){
 
           if(event.variant === 2){
-            this.cache.v1 = true;
+            this.cache.v2 = true;
+
+            localStorage.setItem("bundleTest","v2");
           }
         //}
       //}
     }]);
 
+    console.log("push");
   }
 }

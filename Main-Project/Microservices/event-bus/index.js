@@ -51,7 +51,7 @@ app.post('/variations', async(req, res) => {
 
     let dyDataObject = {
         "selector": {
-          "names": body.experiments
+          "names": body.experiments || []
         },
         "user": {
 
@@ -132,7 +132,7 @@ app.post('/variations', async(req, res) => {
             }
           });
       }catch(e){
-        res.status(404).send( "failed handling DY-request: " + e);
+        res.status(200).send( "failed handling DY-request: " + e);
       }
 
 });

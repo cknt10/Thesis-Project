@@ -20,7 +20,10 @@ export class AppComponent {
     public mfService: MicrofrontendService,
     private loginService: LoginService,
     private route: ActivatedRoute
-    ) {}
+    ) {
+      //@ts-ignore
+      window.JSLib = window.JSLib || [];
+    }
 
   ngOnInit() {
 
@@ -29,9 +32,11 @@ export class AppComponent {
     this.tryLogin();
     // @ts-ignore
     window.JSLib.push(["init"]);
+    console.log("init");
   }
 
   async tryLogin(){
+
     let success: boolean;
 
     let lastState = await this.loginService.defineUser();

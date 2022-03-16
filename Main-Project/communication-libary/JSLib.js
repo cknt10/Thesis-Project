@@ -157,7 +157,7 @@ window.JSLib = (function (window, document, taskRunner){
 
                             document.dispatchEvent(event);
                             resolve;
-                        })
+                        })//.catch
                     );
                 } catch (error) {
                     console.log("failed Fetch", error)
